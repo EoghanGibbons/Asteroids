@@ -41,3 +41,12 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+Lab1.opensdf
+*.exe
+Lab1/Debug/vc120.pdb
+*.idb
+*.obj
+*.tlog
+Lab1/Debug/Lab1.log
+*.ilk
+Debug/Lab1.pdb
