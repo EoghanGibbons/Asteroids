@@ -14,3 +14,13 @@ float gameObject::lenght(sf::Vector2f vec) {
 sf::Vector2f gameObject::normalise(sf::Vector2f vec){
 	return velocity;
 }
+
+void gameObject::update(float time){
+
+	sf::Vector2f nextVelocity(accel * time);
+	
+	if ( lenght(nextVelocity) > MAX_SPEED ) {
+		sf::Vector2f normalisedVelocity = normalise(nextVelocity);
+	}
+	position = position + velocity* time;
+}
