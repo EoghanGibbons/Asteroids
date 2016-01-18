@@ -7,9 +7,11 @@
 #include "C:\2013\SFML\include\SFML\Window.hpp"
 #include "C:\2013\SFML\include\SFML\Graphics.hpp"
 #include <string>
-
+#include "Predator.h"
 
 using namespace std;
+
+
 
 int main() {
 
@@ -29,6 +31,9 @@ int main() {
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	const int window_height = desktop.height;
 	const int window_width = desktop.width;
+
+	Predator killaPredator("player", 900, 500, .3, .3);
+	sf::Clock clock;
 
 	sf::View mainView;
 	mainView.setCenter(myPlayer.getPosition());
@@ -66,8 +71,12 @@ int main() {
 				action = "swarm";
 			else
 				action = "flock";
+
+		sf::Time time = clock.restart();
+		float elapsedTimeInSeconds = time.asSeconds();
 		
 		myPlayer.update(maxEntends);
+		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 		mainView.move(myPlayer.getVelocity().x, myPlayer.getVelocity().y);
 
 		window.clear();

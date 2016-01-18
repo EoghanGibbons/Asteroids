@@ -16,11 +16,15 @@ health(4), range(15) {
 	angularRotation = 0;
 }
 
-void Predator::update(sf::Vector2u maxExtends, sf::Vector2f playerPos, float time) {
+void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
 	
-	/* 
-	// 
-	*/
+	seek(playerPos);
+
+	if (lenght(playerPos) - lenght(position) < 50){
+		arrive(20, 50, playerPos, time);
+	}
+
+	gameObject::update(time);
 
 #pragma region Wrap Around World
 	if (position.x > maxExtends.x){
@@ -37,17 +41,16 @@ void Predator::update(sf::Vector2u maxExtends, sf::Vector2f playerPos, float tim
 		position.y = maxExtends.y;
 	}
 #pragma endregion 
-
-
-	sf::Vector2f nextVelocity(accel * time);
-	sprite.setRotation(sprite.getRotation() + (angularRotation*time));
 	
-	if ( lenght(nextVelocity) > MAX_SPEED ) {
-		sf::Vector2f normalisedVelocity = normalise(nextVelocity);
+	float nexAngularRoation = sprite.getRotation() * time;
 
+	if (nexAngularRoation > MAX_ROTATION) {
+		sprite.setRotation(MAX_ROTATION);
 	}
 	
-	seek();
+	else if (-nexAngularRoation > MAX_ROTATION) {
+		sprite.setRotation(-MAX_ROTATION);
+	}
 	//call intelligence methods
 
 	if (true /* playerDistance < range*/){
@@ -65,7 +68,10 @@ sf::Sprite Predator::returnDrawable() {
 	return sprite;
 }
 
-void Predator::seek() {
+void Predator::seek(sf::Vector2f playerPos) {
+	accel = playerPos - position;
+	accel = normalise(accel);
+	
 }
 
 void Predator::flock() {
@@ -76,4 +82,28 @@ void Predator::flock() {
 
 void Predator::fire() {
 	//Fire at the player, if you think you can hit him
+}
+
+void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerPos, float time){
+	sf::Vector2f direction = playerPos - position;
+	float distance = lenght(direction);
+	float targetSpeed;
+	if (distance > arriveRadius){
+		targetSpeed = 0;
+	}
+	else if (distance > slowRadius){
+		targetSpeed = MAX_SPEED;
+	}
+	else {
+		targetSpeed = MAX_SPEED *(distance / slowRadius);
+	}
+	sf::Vector2f targetVelocity = direction;
+	targetVelocity = normalise(targetVelocity);
+	targetVelocity = targetVelocity * targetSpeed;
+	accel = targetVelocity - velocity;
+	accel = accel * (time * 60);
+	if (lenght(accel) > MAX_ACCELERATION){
+		accel = normalise(accel);
+		accel = accel * MAX_ACCELERATION;
+	}
 }
