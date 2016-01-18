@@ -22,6 +22,6 @@ private:
 	void producePredator();
 
 	//assign these values later
-	//int width = 173;
-	//int height = 291;
+	int width = 173;
+	int height = 291;
 };

@@ -2,22 +2,26 @@
 
 //Constructor
 Predator::Predator(std::string name, float pXPos, float pYPos, float pXVel, float pYVel) :
+gameObject(pXPos, pYPos, pXVel, pYVel),
 health(4), range(15) {
+
 	texture.loadFromFile(name + ".png");
 	sprite.setTexture(texture);
 
 	//l8r m8
 	//sprite.setScale(.5, .5);
 	//sprite.setOrigin(width / 2, height / 2);
-
-	position.x = pXPos;
-	position.y = pYPos;
-	velocity.x = pXVel;
-	velocity.y = pYVel;
+	accel.x = 5;
+	accel.y = 5;
+	angularRotation = 0;
 }
 
-void Predator::update(sf::Vector2u maxExtends, sf::Vector2f playerPos) {
-	//Wrap around world implementation
+void Predator::update(sf::Vector2u maxExtends, sf::Vector2f playerPos, float time) {
+	
+	/* 
+	// 
+	*/
+
 #pragma region Wrap Around World
 	if (position.x > maxExtends.x){
 		position.x = -1 * width;
@@ -34,7 +38,15 @@ void Predator::update(sf::Vector2u maxExtends, sf::Vector2f playerPos) {
 	}
 #pragma endregion 
 
-	float playerDistance; // = Distance between Pred and player position, simple formula, cba to write it since I can't execute on laptop anyway
+
+	sf::Vector2f nextVelocity(accel * time);
+	sprite.setRotation(sprite.getRotation() + (angularRotation*time));
+	
+	if ( lenght(nextVelocity) > MAX_SPEED ) {
+		sf::Vector2f normalisedVelocity = normalise(nextVelocity);
+
+	}
+	
 	seek();
 	//call intelligence methods
 
@@ -54,7 +66,6 @@ sf::Sprite Predator::returnDrawable() {
 }
 
 void Predator::seek() {
-	//seek out the player and move towards him
 }
 
 void Predator::flock() {

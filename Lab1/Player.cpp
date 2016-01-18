@@ -12,7 +12,7 @@ Player::Player(std::string name, float pXPos, float pYPos, float pXVel, float pY
 	velocity.y = pYVel;
 }
 
-void Player::update(sf::Vector2u maxExtends){
+void Player::update(sf::Vector2f maxExtends){
 	//Wrap around world implementation
 	#pragma region Wrap Around World
 	if (position.x > maxExtends.x){
@@ -29,7 +29,7 @@ void Player::update(sf::Vector2u maxExtends){
 		position.y = maxExtends.y;
 	}
 	#pragma endregion 
-	
+
 	//Player roation and Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		sprite.rotate(-.10);
@@ -49,4 +49,12 @@ void Player::update(sf::Vector2u maxExtends){
 
 sf::Sprite Player::returnDrawable(){
 	return sprite;
+}
+
+sf::Vector2f Player::getPosition() {
+	return position;
+}
+
+sf::Vector2f Player::getVelocity() {
+	return velocity;
 }

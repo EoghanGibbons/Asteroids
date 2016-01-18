@@ -50,3 +50,6 @@ Lab1/Debug/vc120.pdb
 Lab1/Debug/Lab1.log
 *.ilk
 Debug/Lab1.pdb
+*.suo
+Lab1.sdf
+*.sdf

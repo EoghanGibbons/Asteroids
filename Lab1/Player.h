@@ -6,8 +6,10 @@ class Player{
 public:
 	Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);
 
-	void update(sf::Vector2u);
+	void update(sf::Vector2f);
 	sf::Sprite returnDrawable();
+	sf::Vector2f getPosition();
+	sf::Vector2f getVelocity();
 private:
 	sf::Vector2f position;
 	sf::Vector2f velocity;
