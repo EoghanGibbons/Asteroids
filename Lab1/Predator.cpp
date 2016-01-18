@@ -20,6 +20,10 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 	
 	seek(playerPos);
 
+	if (lenght(playerPos) - lenght(position) < 50){
+		arrive(20, 50, playerPos, time);
+	}
+
 	gameObject::update(time);
 
 #pragma region Wrap Around World
@@ -47,7 +51,6 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 	else if (-nexAngularRoation > MAX_ROTATION) {
 		sprite.setRotation(-MAX_ROTATION);
 	}
-
 	//call intelligence methods
 
 	if (true /* playerDistance < range*/){
@@ -79,4 +82,28 @@ void Predator::flock() {
 
 void Predator::fire() {
 	//Fire at the player, if you think you can hit him
+}
+
+void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerPos, float time){
+	sf::Vector2f direction = playerPos - position;
+	float distance = lenght(direction);
+	float targetSpeed;
+	if (distance > arriveRadius){
+		targetSpeed = 0;
+	}
+	else if (distance > slowRadius){
+		targetSpeed = MAX_SPEED;
+	}
+	else {
+		targetSpeed = MAX_SPEED *(distance / slowRadius);
+	}
+	sf::Vector2f targetVelocity = direction;
+	targetVelocity = normalise(targetVelocity);
+	targetVelocity = targetVelocity * targetSpeed;
+	accel = targetVelocity - velocity;
+	accel = accel * (time * 60);
+	if (lenght(accel) > MAX_ACCELERATION){
+		accel = normalise(accel);
+		accel = accel * MAX_ACCELERATION;
+	}
 }

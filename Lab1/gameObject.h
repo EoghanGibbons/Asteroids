@@ -17,4 +17,5 @@ public:
 	float angularRotation;
 	const float MAX_SPEED = 50;
 	const float MAX_ROTATION = 360;
+	const float MAX_ACCELERATION = 500;
 };
