@@ -13,9 +13,11 @@ public:
 private:
 	sf::Vector2f position;
 	sf::Vector2f velocity;
+	sf::Vector2f direction;
 	sf::Sprite sprite;
 	sf::Texture texture;
 
 	int width = 173;
 	int height = 291;
+	float M_PI = 3.141f;
 };

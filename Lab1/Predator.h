@@ -18,7 +18,6 @@ private:
 	void seek();
 	void flock();
 	void fire();
-	float lenght(sf::Vector2f);
 
 	//assign these values later
 	int width = 173;

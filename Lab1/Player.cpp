@@ -29,6 +29,10 @@ void Player::update(sf::Vector2f maxExtends){
 		position.y = maxExtends.y;
 	}
 	#pragma endregion 
+	
+	direction.x = (float)sin((M_PI / 180.0f) * (sprite.getRotation()));
+	direction.y = (float)cos((M_PI / 180.0f) * (sprite.getRotation()));
+
 
 	//Player roation and Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
