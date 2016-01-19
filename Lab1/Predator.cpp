@@ -3,7 +3,6 @@
 //Constructor
 Predator::Predator(std::string name, float pXPos, float pYPos, float pXVel, float pYVel) :
 gameObject(pXPos, pYPos, pXVel, pYVel) {
-
 	texture.loadFromFile(name + ".png");
 	sprite.setTexture(texture);
 
@@ -13,33 +12,19 @@ gameObject(pXPos, pYPos, pXVel, pYVel) {
 	accel.x = 5;
 	accel.y = 5;
 	angularRotation = 0;
+
+	width = 173;
+	height = 291;
 }
 
 void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
-	
 	seek(playerPos);
 
 	if (lenght(playerPos) - lenght(position) < 50){
 		arrive(20, 50, playerPos, time);
 	}
 
-	gameObject::update(time);
-
-#pragma region Wrap Around World
-	if (position.x > maxExtends.x){
-		position.x = -1 * width;
-	}
-	else if (position.x < -1 * width){
-		position.x = maxExtends.x;
-	}
-
-	if (position.y > maxExtends.y){
-		position.y = -1 * height;
-	}
-	else if (position.y < -1 * height){
-		position.y = maxExtends.y;
-	}
-#pragma endregion 
+	gameObject::update(maxExtends, time); 
 	
 	float nexAngularRoation = sprite.getRotation() * time;
 
@@ -101,7 +86,7 @@ void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerP
 	targetVelocity = targetVelocity * targetSpeed;
 	accel = targetVelocity - velocity;
 	accel = accel * (time * 60);
-	if (lenght(accel) > MAX_ACCELERATION){
+	if (lenght(accel) > MAX_ACCELERATION) {
 		accel = normalise(accel);
 		accel = accel * MAX_ACCELERATION;
 	}

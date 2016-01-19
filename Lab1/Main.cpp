@@ -10,7 +10,6 @@
 #include "Predator.h"
 
 int main() {
-
 	float boidsSize = 4;
 	std::string action = "flock";
 
@@ -35,8 +34,7 @@ int main() {
 	mainView.setCenter(myPlayer.getPosition());
 	window.setView(mainView);
 
-	for (int i = 0; i < 10; i++) //Number of boids is hardcoded for testing pusposes.
-	{
+	for (int i = 0; i < 10; i++) {//Number of boids is hardcoded for testing pusposes.
 		//Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
 		Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)

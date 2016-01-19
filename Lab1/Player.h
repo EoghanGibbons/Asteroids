@@ -2,6 +2,7 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\System\Vector2.hpp>
 #include <SFML\Window\Keyboard.hpp>
+
 class Player{
 public:
 	Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);

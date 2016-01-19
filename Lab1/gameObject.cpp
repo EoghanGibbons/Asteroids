@@ -16,7 +16,22 @@ sf::Vector2f gameObject::normalise(sf::Vector2f vec){
 	return velocity;
 }
 
-void gameObject::update(float time){
+void gameObject::update(sf::Vector2f maxExtends, float time) {
+#pragma region Wrap Around World
+	if (position.x > maxExtends.x){
+		position.x = -1 * width;
+	}
+	else if (position.x < -1 * width){
+		position.x = maxExtends.x;
+	}
+
+	if (position.y > maxExtends.y){
+		position.y = -1 * height;
+	}
+	else if (position.y < -1 * height){
+		position.y = maxExtends.y;
+	}
+#pragma endregion
 
 	sf::Vector2f nextVelocity(accel * time);
 	

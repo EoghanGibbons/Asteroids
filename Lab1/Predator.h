@@ -16,8 +16,4 @@ private:
 	void arrive(float arriveRadius, float slowRadius, sf::Vector2f playerPos, float time);
 	void flock();
 	void fire();
-
-	//assign these values later
-	int width = 173;
-	int height = 291;
 };

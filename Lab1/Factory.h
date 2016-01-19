@@ -1,13 +1,13 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\System\Vector2.hpp>
-#include "gameObject.h"
+#include "Predator.h"
 
 class Factory : public gameObject{
 public:
 	Factory(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);
 
-	void update(sf::Vector2u maxExtends, sf::Vector2f playerPos, float time);
+	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
 	sf::Sprite returnDrawable();
 private:
 	sf::Texture texture;

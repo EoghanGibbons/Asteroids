@@ -9,7 +9,7 @@ public:
 	sf::Vector2f normalise(sf::Vector2f);
 	float lenght(sf::Vector2f);
 	sf::Sprite sprite;
-	void update(float time);
+	void update(sf::Vector2f maxExtends, float time);
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;
@@ -20,4 +20,6 @@ public:
 	const float MAX_ACCELERATION = 500;
 	short range;
 	short health;
+	int width;
+	int height;
 };

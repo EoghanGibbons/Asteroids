@@ -11,26 +11,9 @@ gameObject(pXPos, pYPos, pXVel, pYVel) {
 	//sprite.setOrigin(width / 2, height / 2);
 }
 
-void Factory::update(sf::Vector2u maxExtends, sf::Vector2f playerPos, float time) {
+void Factory::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
 														
-	gameObject::update(time);
-	
-	//Wrap around world implementation
-#pragma region Wrap Around World
-	if (position.x > maxExtends.x){
-		position.x = -1 * width;
-	}
-	else if (position.x < -1 * width){
-		position.x = maxExtends.x;
-	}
-
-	if (position.y > maxExtends.y){
-		position.y = -1 * height;
-	}
-	else if (position.y < -1 * height){
-		position.y = maxExtends.y;
-	}
-#pragma endregion 
+	gameObject::update(maxExtends, time);
 
 	//call intelligence methods
 	
