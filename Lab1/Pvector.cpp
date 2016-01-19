@@ -1,6 +1,5 @@
 #include <math.h>
 #include "Pvector.h"
-using namespace std;
 
 // =================================================== //
 // ======== Pvector Functions from Pvector.h ========= //

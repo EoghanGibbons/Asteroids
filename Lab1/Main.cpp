@@ -12,7 +12,7 @@
 int main() {
 
 	float boidsSize = 4;
-	string action = "flock";
+	std::string action = "flock";
 
 	sf::Vector2f maxEntends;
 	maxEntends = { 3000, 3000 };
@@ -21,7 +21,7 @@ int main() {
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
-	vector<sf::CircleShape> shapes;
+	std::vector<sf::CircleShape> shapes;
 
 	//Gets the resolution, size, and bits per pixel for the screen of the PC that is running this program.
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();

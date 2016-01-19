@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <iostream>
 
-using namespace std;
-
 #ifndef BOID_H_
 #define BOID_H_
 
@@ -71,17 +69,17 @@ public:
 	*/
 	void applyForce(Pvector force);
 	// Three Laws that boids follow
-	Pvector Separation(vector<Boid> Boids);
-	Pvector Alignment(vector<Boid> Boids);
-	Pvector Cohesion(vector<Boid> Boids);
+	Pvector Separation(std::vector<Boid> Boids);
+	Pvector Alignment(std::vector<Boid> Boids);
+	Pvector Cohesion(std::vector<Boid> Boids);
 	//Functions involving SFML and visualisation linking
 	Pvector seek(Pvector v);
-	void run(vector <Boid> v);
+	void run(std::vector <Boid> v);
 	void update();
-	void flock(vector <Boid> v);
+	void flock(std::vector <Boid> v);
 	void borders();
 	float angle(Pvector v);
-	void swarm(vector <Boid> v);
+	void swarm(std::vector <Boid> v);
 };
 
 #endif

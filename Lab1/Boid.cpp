@@ -17,8 +17,6 @@ const int window_width = desktopTemp.width;
 #define w_width window_width
 #define PI 3.141592635
 
-using namespace std;
-
 // =============================================== //
 // ======== Boid Functions from Boid.h =========== //
 // =============================================== //
@@ -31,7 +29,7 @@ void Boid::applyForce(Pvector force)
 
 // Function that checks and modifies the distance
 // of a boid if it breaks the law of separation.
-Pvector Boid::Separation(vector<Boid> boids)
+Pvector Boid::Separation(std::vector<Boid> boids)
 {
 	// If the boid we're looking at is a predator, do not run the separation
 	// algorithm
@@ -95,7 +93,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 // Alignment calculates the average velocity in the field of view and 
 // manipulates the velocity of the Boid passed as parameter to adjust to that
 // of nearby boids.
-Pvector Boid::Alignment(vector<Boid> Boids)
+Pvector Boid::Alignment(std::vector<Boid> Boids)
 {
 	// If the boid we're looking at is a predator, do not run the alignment
 	// algorithm
@@ -134,7 +132,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 
 // Cohesion finds the average location of nearby boids and manipulates the 
 // steering force to move in that direction.
-Pvector Boid::Cohesion(vector<Boid> Boids)
+Pvector Boid::Cohesion(std::vector<Boid> Boids)
 {
 	// If the boid we're looking at is a predator, do not run the cohesion
 	// algorithm
@@ -198,7 +196,7 @@ void Boid::update()
 //Run runs flock on the flock of boids for each boid.
 //Which applies the three rules, modifies accordingly, updates data, checks is data is
 //out of range, fixes that for SFML, and renders it on the window.
-void Boid::run(vector <Boid> v)
+void Boid::run(std::vector <Boid> v)
 {
 	flock(v);
 	update();
@@ -207,7 +205,7 @@ void Boid::run(vector <Boid> v)
 
 //Applies all three laws for the flock of boids and modifies to keep them from
 //breaking the laws.
-void Boid::flock(vector<Boid> v)
+void Boid::flock(std::vector<Boid> v)
 {
 	Pvector sep = Separation(v);
 	Pvector ali = Alignment(v);
@@ -240,7 +238,7 @@ float Boid::angle(Pvector v)
 	return angle;
 }
 
-void Boid::swarm(vector <Boid> v)
+void Boid::swarm(std::vector <Boid> v)
 {
 	/*		Lenard-Jones Potential function
 	Vector R = me.position - you.position

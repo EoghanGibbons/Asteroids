@@ -1,8 +1,6 @@
 #include "Boid.h"
 #include "Flock.h"
 
-using namespace std;
-
 // =============================================== //
 // ======== Flock Functions from Flock.h ========= //
 // =============================================== //

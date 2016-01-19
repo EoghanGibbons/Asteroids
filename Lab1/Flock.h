@@ -2,8 +2,6 @@
 #include <vector>
 #include "Boid.h"
 
-using namespace std;
-
 #ifndef FLOCK_H_
 #define FLOCK_H_
 
@@ -20,7 +18,7 @@ private:
 
 public:
 	//Public Variables
-	vector<Boid> flock;
+	std::vector<Boid> flock;
 
 	//Constructors
 	Flock() {}
@@ -29,7 +27,7 @@ public:
 	//Destructor
 	Flock::~Flock()
 	{
-	    cout << "Flock is being deleted by destructor!" << endl;
+		std::cout << "Flock is being deleted by destructor!" << std::endl;
 	}
 	
 	//Accessor functions
