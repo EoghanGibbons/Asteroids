@@ -4,8 +4,8 @@
 #include "Boid.h"
 #include "Pvector.h"
 #include "Flock.h"
-#include "C:\2013\SFML\include\SFML\Window.hpp"
-#include "C:\2013\SFML\include\SFML\Graphics.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 #include <string>
 #include "Predator.h"
 
