@@ -40,12 +40,12 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 	sf::Vector2f nextVelocity(accel * time);
 	
 	if ( lenght(nextVelocity) > MAX_SPEED ) {
-		sf::Vector2f normalisedVelocity = normalise(nextVelocity);
+		velocity = normalise(nextVelocity);
 	}
 	position = position + velocity* time;
 }
 
-void gameObject::update(sf::Vector2f maxExtends) {
+void gameObject::update(sf::Vector2f maxExtends, float time, float angleInDegrees) {
 #pragma region Wrap Around World
 	if (position.x > maxExtends.x){
 		position.x = -1 * width;
@@ -61,4 +61,11 @@ void gameObject::update(sf::Vector2f maxExtends) {
 		position.y = maxExtends.y;
 	}
 #pragma endregion
+
+	sf::Vector2f nextVelocity(accel * angleInDegrees* time);
+
+	if (lenght(nextVelocity) > MAX_SPEED) {
+		velocity = normalise(nextVelocity);
+	}
+	position = position + velocity;
 }

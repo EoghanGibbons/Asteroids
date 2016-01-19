@@ -2,21 +2,22 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\System\Vector2.hpp>
 #include <SFML\Window\Keyboard.hpp>
+#include "gameObject.h"
 
-class Player{
+class Player: public gameObject{
 public:
 	Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);
+	~Player(){
+		gameObject::~gameObject();
+	}
 
-	void update(sf::Vector2f);
+	void update(sf::Vector2f, float time);
 	sf::Sprite returnDrawable();
 	sf::Vector2f getPosition();
 	sf::Vector2f getVelocity();
 private:
-	sf::Vector2f position;
-	sf::Vector2f velocity;
-	sf::Vector2f direction;
-	sf::Sprite sprite;
 	sf::Texture texture;
+	sf::Vector2f direction;
 
 	int width = 173;
 	int height = 291;

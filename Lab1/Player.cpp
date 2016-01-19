@@ -1,37 +1,38 @@
 #include "Player.h"
 
 //Constructor
-Player::Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel){
+Player::Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel):
+gameObject(pXPos, pYPos, pXVel, pYVel){
 	texture.loadFromFile(name+".png");
 	sprite.setTexture(texture);
 	sprite.setScale(.5, .5);
 	sprite.setOrigin(width / 2, height / 2);
-	position.x = pXPos;
-	position.y = pYPos;
-	velocity.x = pXVel;
-	velocity.y = pYVel;
 }
 
-void Player::update(sf::Vector2f maxExtends){
+void Player::update(sf::Vector2f maxExtends, float time){
 	
-
-	direction.x = (float)sin((M_PI / 180.0f) * (sprite.getRotation()));
-	direction.y = (float)cos((M_PI / 180.0f) * (sprite.getRotation()));
-
-
 	//Player roation and Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		sprite.rotate(-.10);
+		sprite.rotate(-.10);;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		sprite.rotate(.10);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		position = position + velocity;
+		accel.x = accel.x+.0001;
+		accel.y = accel.y+.0001;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		position = position - velocity;
+		accel.x = accel.x-.00001;
+		accel.y = accel.y-.00001;
 	}
+
+	//velocity.x = accel.x;
+	//velocity.y = accel.y;
+	velocity.x = cos(sprite.getRotation()*3.14159265 / 180)*3.f;
+	velocity.y = sin(sprite.getRotation()*3.14159265 / 180)*-3.f;
+
+	gameObject::update(maxExtends, time*100, sprite.getRotation());
 
 	sprite.setPosition(position);
 }

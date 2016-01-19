@@ -16,7 +16,7 @@ int main() {
 	sf::Vector2f maxEntends;
 	maxEntends = { 3000, 3000 };
 	sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
-	Player myPlayer("player", 200, 200, .3, .3);
+	Player myPlayer("player", 200, 200, .0, .0);
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
@@ -69,7 +69,7 @@ int main() {
 		sf::Time time = clock.restart();
 		float elapsedTimeInSeconds = time.asSeconds();
 		
-		myPlayer.update(maxEntends);
+		myPlayer.update(maxEntends, elapsedTimeInSeconds);
 		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 		mainView.move(myPlayer.getVelocity().x, myPlayer.getVelocity().y);
 

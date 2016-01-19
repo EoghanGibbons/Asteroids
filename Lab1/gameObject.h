@@ -1,7 +1,10 @@
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
+
 #include <SFML\System\Vector2.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 
-class gameObject{
+class gameObject {
 public:
 	gameObject();
 	gameObject(float pXPos, float pYPos, float pXVel, float pYVel);
@@ -11,13 +14,13 @@ public:
 	float lenght(sf::Vector2f);
 	sf::Sprite sprite;
 	void update(sf::Vector2f maxExtends, float time);
-	void update(sf::Vector2f maxExtends);
+	void update(sf::Vector2f maxExtends, float time, float angleInDegrees);
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;
 	sf::Vector2f accel;
 	float angularRotation;
-	const float MAX_SPEED = 50;
+	const float MAX_SPEED = .05;
 	const float MAX_ROTATION = 360;
 	const float MAX_ACCELERATION = 500;
 	short range;
@@ -25,3 +28,5 @@ public:
 	int width;
 	int height;
 };
+
+#endif
