@@ -19,18 +19,18 @@ void Player::update(sf::Vector2f maxExtends, float time){
 		sprite.rotate(.10);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		accel.x = accel.x+.0001;
-		accel.y = accel.y+.0001;
+		accel.x = /* accel.x  + */ .0001;
+		accel.y = /* accel.y+  */ .0001;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		accel.x = accel.x-.00001;
-		accel.y = accel.y-.00001;
+		accel.x = /* accel.x- */ .00001;
+		accel.y = /* accel.y- */ .00001;
 	}
 
 	//velocity.x = accel.x;
 	//velocity.y = accel.y;
-	velocity.x = cos(sprite.getRotation()*3.14159265 / 180)*3.f;
-	velocity.y = sin(sprite.getRotation()*3.14159265 / 180)*-3.f;
+	velocity.x = cos(sprite.getRotation()* ((3.14159265 / 180)*3.f))/10;
+	velocity.y = sin(sprite.getRotation()* ((3.14159265 / 180)*-3.f))/10;
 
 	gameObject::update(maxExtends, time*100, sprite.getRotation());
 

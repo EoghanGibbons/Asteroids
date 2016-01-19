@@ -17,7 +17,7 @@ float gameObject::lenght(sf::Vector2f vec) {
 }
 
 sf::Vector2f gameObject::normalise(sf::Vector2f vec){
-	return velocity;
+	return (velocity / lenght(velocity));
 }
 
 void gameObject::update(sf::Vector2f maxExtends, float time) {
