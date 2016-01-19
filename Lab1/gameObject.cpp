@@ -8,6 +8,10 @@ health(4), range(15) {
 	velocity.y = pYVel;
 }
 
+gameObject::~gameObject() {
+
+}
+
 float gameObject::lenght(sf::Vector2f vec) {
 	return ((vec.x * vec.x) + ((vec.y * vec.y)));
 }

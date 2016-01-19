@@ -5,7 +5,8 @@ class gameObject{
 public:
 	gameObject();
 	gameObject(float pXPos, float pYPos, float pXVel, float pYVel);
-	virtual ~gameObject();
+	//virtual ~gameObject();
+	~gameObject();
 	sf::Vector2f normalise(sf::Vector2f);
 	float lenght(sf::Vector2f);
 	sf::Sprite sprite;

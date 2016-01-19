@@ -6,7 +6,9 @@
 class Factory : public gameObject{
 public:
 	Factory(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);
-
+	~Factory(){
+		gameObject::~gameObject();
+	}
 	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
 	sf::Sprite returnDrawable();
 private:
