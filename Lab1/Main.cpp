@@ -14,7 +14,7 @@ int main() {
 	std::string action = "flock";
 
 	sf::Vector2f maxEntends;
-	maxEntends = { 3000, 3000 };
+	maxEntends = { 960, 540 };
 	sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
 	Player myPlayer("player", 200, 200, .0, .0);
 
