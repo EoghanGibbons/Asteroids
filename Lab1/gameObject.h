@@ -10,6 +10,7 @@ public:
 	float lenght(sf::Vector2f);
 	sf::Sprite sprite;
 	void update(sf::Vector2f maxExtends, float time);
+	void update(sf::Vector2f maxExtends);
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;

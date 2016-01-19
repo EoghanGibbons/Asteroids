@@ -13,23 +13,8 @@ Player::Player(std::string name, float pXPos, float pYPos, float pXVel, float pY
 }
 
 void Player::update(sf::Vector2f maxExtends){
-	//Wrap around world implementation
-	#pragma region Wrap Around World
-	if (position.x > maxExtends.x){
-		position.x = -1 * width;
-	}
-	else if (position.x < -1*width){
-		position.x = maxExtends.x;
-	}
-
-	if (position.y > maxExtends.y){
-		position.y = -1 * height;
-	}
-	else if (position.y < -1 * height){
-		position.y = maxExtends.y;
-	}
-	#pragma endregion 
 	
+
 	direction.x = (float)sin((M_PI / 180.0f) * (sprite.getRotation()));
 	direction.y = (float)cos((M_PI / 180.0f) * (sprite.getRotation()));
 

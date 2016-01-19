@@ -40,3 +40,21 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 	}
 	position = position + velocity* time;
 }
+
+void gameObject::update(sf::Vector2f maxExtends) {
+#pragma region Wrap Around World
+	if (position.x > maxExtends.x){
+		position.x = -1 * width;
+	}
+	else if (position.x < -1 * width){
+		position.x = maxExtends.x;
+	}
+
+	if (position.y > maxExtends.y){
+		position.y = -1 * height;
+	}
+	else if (position.y < -1 * height){
+		position.y = maxExtends.y;
+	}
+#pragma endregion
+}
