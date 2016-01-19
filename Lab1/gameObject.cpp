@@ -1,6 +1,7 @@
 #include "gameObject.h"
 
-gameObject::gameObject(float pXPos, float pYPos, float pXVel, float pYVel){
+gameObject::gameObject(float pXPos, float pYPos, float pXVel, float pYVel):
+health(4), range(15) {
 	position.x = pXPos;
 	position.y = pYPos;
 	velocity.x = pXVel;

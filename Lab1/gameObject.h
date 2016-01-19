@@ -5,10 +5,9 @@ class gameObject{
 public:
 	gameObject();
 	gameObject(float pXPos, float pYPos, float pXVel, float pYVel);
-	//virtual ~gameObject();
+	virtual ~gameObject();
 	sf::Vector2f normalise(sf::Vector2f);
 	float lenght(sf::Vector2f);
-	~gameObject();
 	sf::Sprite sprite;
 	void update(float time);
 
@@ -19,4 +18,6 @@ public:
 	const float MAX_SPEED = 50;
 	const float MAX_ROTATION = 360;
 	const float MAX_ACCELERATION = 500;
+	short range;
+	short health;
 };

@@ -2,8 +2,7 @@
 
 //Constructor
 Predator::Predator(std::string name, float pXPos, float pYPos, float pXVel, float pYVel) :
-gameObject(pXPos, pYPos, pXVel, pYVel),
-health(4), range(15) {
+gameObject(pXPos, pYPos, pXVel, pYVel) {
 
 	texture.loadFromFile(name + ".png");
 	sprite.setTexture(texture);

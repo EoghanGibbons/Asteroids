@@ -9,10 +9,6 @@
 #include <string>
 #include "Predator.h"
 
-using namespace std;
-
-
-
 int main() {
 
 	float boidsSize = 4;

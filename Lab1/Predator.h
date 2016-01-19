@@ -11,16 +11,11 @@ public:
 	sf::Sprite returnDrawable();
 private:
 	sf::Texture texture;
-	short range;
-	short health;
 
 	void seek(sf::Vector2f playerPos);
 	void arrive(float arriveRadius, float slowRadius, sf::Vector2f playerPos, float time);
 	void flock();
 	void fire();
-
-	float lenght(sf::Vector2f);
-	
 
 	//assign these values later
 	int width = 173;
