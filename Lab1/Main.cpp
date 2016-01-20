@@ -7,6 +7,8 @@
 #include <string>
 #include "Predator.h"
 
+
+
 int main() {
 	float boidsSize = 4;
 	std::string action = "flock";
@@ -18,11 +20,12 @@ int main() {
 
 	//Having the style of "None" gives a false-fullscreen effect for easier closing and access.
 	//No FPS limit of V-sync setting needed for it may cause unnecessary slowdown.
-	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Boids", sf::Style::Fullscreen);
+	//sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Boids", sf::Style::Fullscreen);
 
 	sf::Vector2f maxEntends;
 	maxEntends = { 960, 540 };
-	//sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
+	sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
+
 	Player myPlayer("player", 200, 200, .0, .0);
 
 	//Create flock, vector of shapes, and initialize boids
@@ -58,8 +61,9 @@ int main() {
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)){
-			if (event.type == sf::Event::Closed)
-				window.close();
+			if ((event.type == sf::Event::Closed) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)){
+					window.close();
+				}
 		}
 
 		if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space))
