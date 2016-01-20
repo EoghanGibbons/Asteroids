@@ -1,9 +1,9 @@
+#ifndef FLOCK_H_
+#define FLOCK_H_
+
 #include <iostream>
 #include <vector>
 #include "Boid.h"
-
-#ifndef FLOCK_H_
-#define FLOCK_H_
 
 /*
 Brief description of Flock Class:
@@ -14,22 +14,16 @@ Brief description of Flock Class:
 
 class Flock
 {
-private:
-
 public:
 	//Public Variables
 	std::vector<Boid> flock;
 
 	//Constructors
-	Flock() {}
-	
-//	Commented out for now, since including destructors causes g++ to spit back errors.
+	Flock();
+
 	//Destructor
-	Flock::~Flock()
-	{
-		std::cout << "Flock is being deleted by destructor!" << std::endl;
-	}
-	
+	~Flock();
+
 	//Accessor functions
 	int getSize();
 	Boid getBoid(int i);
@@ -37,6 +31,8 @@ public:
 	void addBoid(Boid b);
 	void flocking();
 	void swarming();
+private:
+
 };
 
 #endif

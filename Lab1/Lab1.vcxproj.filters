@@ -36,6 +36,9 @@
     <ClCompile Include="Pvector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Flock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -59,10 +62,5 @@
     <ClInclude Include="Flock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Flock.cpp">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

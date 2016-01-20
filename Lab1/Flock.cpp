@@ -1,9 +1,16 @@
-#include "Boid.h"
 #include "Flock.h"
 
 // =============================================== //
 // ======== Flock Functions from Flock.h ========= //
 // =============================================== //
+
+Flock::Flock() {
+	
+}
+
+Flock::~Flock() {
+	std::cout << "Flock is being deleted by destructor!" << std::endl;
+}
 
 int Flock::getSize()
 {
