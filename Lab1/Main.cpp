@@ -7,8 +7,6 @@
 #include <string>
 #include "Predator.h"
 
-
-
 int main() {
 	float boidsSize = 4;
 	std::string action = "flock";
@@ -32,11 +30,11 @@ int main() {
 	Flock flock;
 	std::vector<sf::CircleShape> shapes;
 
-	Predator killaPredator("player", 900, 500, .3, .3);
+	Predator killaPredator("player", 300, 300, .3, .3);
 	sf::Clock clock;
 
 	sf::View mainView;
-	mainView.setCenter(myPlayer.getPosition());
+	mainView.setCenter(sf::Vector2f(0 + 960 / 2, 0 + 540 / 2));//(myPlayer.getPosition());
 	window.setView(mainView);
 
 	for (int i = 0; i < 50; i++) {//Number of boids is hardcoded for testing pusposes.
@@ -77,18 +75,13 @@ int main() {
 		
 		myPlayer.update(maxEntends, elapsedTimeInSeconds);
 		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
-		mainView.move(myPlayer.getVelocity().x, myPlayer.getVelocity().y);
+		//mainView.move(myPlayer.getVelocity().x, myPlayer.getVelocity().y);
 
 		window.clear();
 
 		//Draws all of the Boids out, and applies functions that are needed to update.
-		for (int i = 0; i < shapes.size(); i++)
-		{
+		for (int i = 0; i < shapes.size(); i++)	{
 			window.draw(shapes[i]);
-
-			//Cout's removed due to slowdown and only needed for testing purposes
-			//cout << "Boid "<< i <<" Coordinates: (" << shapes[i].getPosition().x << ", " << shapes[i].getPosition().y << ")" << endl;
-			//cout << "Boid Code " << i << " Location: (" << flock.getBoid(i).location.x << ", " << flock.getBoid(i).location.y << ")" << endl;
 
 			//Matches up the location of the shape to the boid
 			shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);

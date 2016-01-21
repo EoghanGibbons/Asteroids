@@ -4,6 +4,8 @@
 #include <SFML\System\Vector2.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 
+#define PI 3.14159265
+
 class gameObject {
 public:
 	gameObject();
@@ -17,11 +19,13 @@ public:
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;
-	sf::Vector2f accel;
+	float speed;
+	sf::Vector2f direction;
 	float angularRotation;
-	const float MAX_SPEED = .05;
+	float angularVelocity;
+	const float MAX_SPEED = 5;
 	const float MAX_ROTATION = 360;
-	const float MAX_ACCELERATION = 500;
+	const float MAX_speedERATION = 500;
 	short range;
 	short health;
 	int width;

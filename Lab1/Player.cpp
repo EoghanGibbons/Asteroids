@@ -6,28 +6,26 @@ gameObject(pXPos, pYPos, pXVel, pYVel){
 	texture.loadFromFile(name+".png");
 	sprite.setTexture(texture);
 	sprite.setScale(.5, .5);
-	sprite.setOrigin(position.x + (width / 2),position.y + (height / 2));
+	sprite.setOrigin((width / 2),(height / 2));
+	speed = 0.02f;
 }
 
 void Player::update(sf::Vector2f maxExtends, float time){
-	
 	//Player roation and Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		sprite.rotate(-.10);;
+		sprite.rotate(-5);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		sprite.rotate(.10);
+		sprite.rotate(5);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		accel.x = accel.x + 50;
-		accel.y = accel.y + 50;
+		speed += 10;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		accel.x = accel.x - 50;
-		accel.y = accel.y - 50;
+		speed -= 10;
 	}
 
-	gameObject::update(maxExtends, time*100, sprite.getRotation());
+	gameObject::update(maxExtends, time, sprite.getRotation());
 
 	sprite.setPosition(position);
 }

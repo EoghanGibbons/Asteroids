@@ -9,8 +9,6 @@ gameObject(pXPos, pYPos, pXVel, pYVel) {
 	//l8r m8
 	//sprite.setScale(.5, .5);
 	//sprite.setOrigin(width / 2, height / 2);
-	accel.x = 5;
-	accel.y = 5;
 	angularRotation = 0;
 
 	width = 173;
@@ -53,9 +51,8 @@ sf::Sprite Predator::returnDrawable() {
 }
 
 void Predator::seek(sf::Vector2f playerPos) {
-	accel = playerPos - position;
-	accel = normalise(accel);
-	
+	//speed = playerPos - position;
+	//speed = normalise(speed);
 }
 
 void Predator::flock() {
@@ -84,10 +81,10 @@ void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerP
 	sf::Vector2f targetVelocity = direction;
 	targetVelocity = normalise(targetVelocity);
 	targetVelocity = targetVelocity * targetSpeed;
-	accel = targetVelocity - velocity;
-	accel = accel * (time * 60);
-	if (lenght(accel) > MAX_ACCELERATION) {
-		accel = normalise(accel);
-		accel = accel * MAX_ACCELERATION;
-	}
+	/*speed = targetVelocity - velocity;
+	speed = speed * (time * 60);
+	if (lenght(speed) > MAX_speedERATION) {
+		speed = normalise(speed);
+		speed = speed * MAX_speedERATION;
+	}*/
 }

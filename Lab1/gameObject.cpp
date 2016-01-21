@@ -38,7 +38,9 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 	}
 #pragma endregion
 
-	sf::Vector2f nextVelocity(accel * time);
+	direction = sf::Vector2f(cos( 0 * PI / 180), sin( 0 * PI / 180));
+
+	sf::Vector2f nextVelocity(direction * speed * time);
 	
 	if ( lenght(nextVelocity) > MAX_SPEED ) {
 		velocity = normalise(nextVelocity);
@@ -46,17 +48,18 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 	position = position + velocity* time;
 }
 
-void gameObject::update(sf::Vector2f maxExtends, float time, float angleInDegrees) {
-	accel.x = accel.x * sin( sprite.getRotation() * ( (180 / 3.14159265) * 1.f) );
-	accel.y = accel.y * cos( sprite.getRotation() * ( (180 / 3.14159265) *-1.f) );
-	
-	sf::Vector2f nextVelocity(accel * time);
+void gameObject::update(sf::Vector2f maxExtends, float time, float angleInDegrees) { //controllable gameObject
+	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180) )*-1 );
+	sf::Vector2f nextVelocity(direction * speed * time);
 
 	if (lenght(nextVelocity) > MAX_SPEED) {
 		velocity = normalise(nextVelocity);
 	}
+	else {
+		velocity = nextVelocity;
+	}
 
-	position = position + (velocity*time);
+	position += velocity;
 
 #pragma region Wrap Around World
 	if (position.x > maxExtends.x){
