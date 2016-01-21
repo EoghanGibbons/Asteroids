@@ -5,7 +5,7 @@ Predator::Predator(std::string name, float pXPos, float pYPos, float pXVel, floa
 gameObject(pXPos, pYPos, pXVel, pYVel) {
 	texture.loadFromFile(name + ".png");
 	sprite.setTexture(texture);
-
+	currentState = State::seeking;
 	//l8r m8
 	//sprite.setScale(.5, .5);
 	//sprite.setOrigin(width / 2, height / 2);
