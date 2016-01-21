@@ -49,7 +49,9 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 	position = position + velocity* time;
 }
 
-void gameObject::update(sf::Vector2f maxExtends, float time, float angleInDegrees) { //controllable gameObject
+void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) { //controllable gameObject
+	angularRotation += angularVelocity*time;
+	
 	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180) )*-1 );
 	sf::Vector2f nextVelocity(direction * speed * time);
 
@@ -77,6 +79,9 @@ void gameObject::update(sf::Vector2f maxExtends, float time, float angleInDegree
 		position.y = maxExtends.y;
 	}
 #pragma endregion
+
+	sprite.setRotation(angularRotation);
+	sprite.setPosition(position);
 }
 
 void gameObject::thrust() {
