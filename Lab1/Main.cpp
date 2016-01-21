@@ -8,7 +8,7 @@
 #include "Predator.h"
 
 int main() {
-	float boidsSize = 4;
+	float boidsSize = 5;
 	std::string action = "flock";
 
 	//Gets the resolution, size, and bits per pixel for the screen of the PC that is running this program.
@@ -18,13 +18,15 @@ int main() {
 
 	//Having the style of "None" gives a false-fullscreen effect for easier closing and access.
 	//No FPS limit of V-sync setting needed for it may cause unnecessary slowdown.
-	//sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Boids", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Eoghan and John's Astroids", sf::Style::Fullscreen);
 
 	sf::Vector2f maxEntends;
 	maxEntends = { 960, 540 };
-	sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
+	//sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
 
 	Player myPlayer("player", 200, 200, .0, .0);
+	//Player player(sf::Vector2f(window_width / 2, window_height / 2), sf::Vector2f(1, 0), sf::FloatRect(-window_width, -window_height, window_width * 3, window_height * 3));
+
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
@@ -33,22 +35,43 @@ int main() {
 	Predator killaPredator("player", 300, 300, .0, .0);
 	sf::Clock clock;
 
-	sf::View mainView;
-	mainView.setCenter(sf::Vector2f(0 + 960 / 2, 0 + 540 / 2));//(myPlayer.getPosition());
-	window.setView(mainView);
+	//sf::View mainView;
+	//mainView.setCenter(sf::Vector2f(0 + 960 / 2, 0 + 540 / 2));//(myPlayer.getPosition());
+	//window.setView(mainView);
 
-	for (int i = 0; i < 50; i++) {//Number of boids is hardcoded for testing pusposes.
-		Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
+	int fLeader = 0;
+	for (int i = 0; i < 25; i++) {//Number of boids is hardcoded for testing pusposes.
+		//Boid b(rand() % window_width, rand() % window_height);
+		Boid b(600, 600); //Starts the boid with a random position in the window.
 		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
 
 		//Changing the Visual Properties of the shape
-		//shape.setPosition(b.location.x, b.location.y); //Sets position of shape to random location that boid was set to.
-		shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
+		shape.setPosition(b.location.x, b.location.y); //Sets position of shape to random location that boid was set to.
+		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
+		shape.setOutlineColor(sf::Color(255, 0, 0));
+		shape.setFillColor(sf::Color(255,0,0));
+		shape.setOutlineColor(sf::Color(0,255,0));
+		shape.setOutlineThickness(1);
+		shape.setRadius(boidsSize);
+
+		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
+		flock.addBoid(b);
+		shapes.push_back(shape);
+	}
+
+	for (int i = 0; i < 25; i++) {//Number of boids is hardcoded for testing pusposes.
+		Boid b(200, 200); //Starts the boid with a random position in the window.
+		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
+		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
+
+		//Changing the Visual Properties of the shape
+		shape.setPosition(b.location.x, b.location.y); //Sets position of shape to random location that boid was set to.
+		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
+		shape.setOutlineColor(sf::Color(255, 0, 0));
+		shape.setFillColor(sf::Color(255, 0, 0));
 		shape.setOutlineColor(sf::Color(0, 255, 0));
-		shape.setFillColor(sf::Color::Green);
-		shape.setOutlineColor(sf::Color::White);
-		shape.setOutlineThickness(2);
+		shape.setOutlineThickness(1);
 		shape.setRadius(boidsSize);
 
 		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
@@ -62,13 +85,14 @@ int main() {
 			if ((event.type == sf::Event::Closed) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)){
 					window.close();
 				}
+			if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space))
+				if (action == "flock")
+					action = "swarm";
+				else
+					action = "flock";
+			if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Z))
+				action = "cformation";
 		}
-
-		if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space))
-			if (action == "flock")
-				action = "swarm";
-			else
-				action = "flock";
 
 		sf::Time time = clock.restart();
 		float elapsedTimeInSeconds = time.asSeconds();
@@ -114,6 +138,16 @@ int main() {
 
 		window.draw(myPlayer.returnDrawable());
 		window.draw(killaPredator.returnDrawable());
+
+
+
+		//Applies the three rules to each boid in the flock and changes them accordingly.
+		if (action == "flock")
+			flock.flocking();
+		else if (action == "swarm")
+			flock.swarming();
+		else
+			flock.cFormation(fLeader); //Pass in the index position of the leader.
 		window.display();
 	}
 

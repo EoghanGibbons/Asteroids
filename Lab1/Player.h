@@ -22,4 +22,5 @@ private:
 	const int width = 173;
 	const int height = 291;
 	float M_PI = 3.141f;
+	float rotation;
 };
