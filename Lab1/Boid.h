@@ -46,7 +46,7 @@ public:
 	{
 		predator = predCheck;
 		if (predCheck == true) {
-			maxSpeed = 7.5;
+			maxSpeed = 4.5;
 			maxForce = 0.5;
 			velocity = Pvector(rand() % 3 - 1, rand() % 3 - 1);
 		}

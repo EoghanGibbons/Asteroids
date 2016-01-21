@@ -51,6 +51,12 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 
 void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) { //controllable gameObject
 	angularRotation += angularVelocity*time;
+	if (angularVelocity > MAX_ANGULAR_VELOCTIY){
+		angularVelocity = MAX_ANGULAR_VELOCTIY;
+	}
+	else if (angularVelocity < -1 * MAX_ANGULAR_VELOCTIY){
+		angularVelocity = MAX_ANGULAR_VELOCTIY * -1;
+	}
 	
 	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180) )*-1 );
 	sf::Vector2f nextVelocity(direction * speed * time);

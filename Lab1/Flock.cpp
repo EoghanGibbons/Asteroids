@@ -94,3 +94,40 @@ void Flock::cFormation(int fLeader)
 		}
 	}
 }
+
+/*
+bool Bullet::OutOfBounds()
+{
+	return offScreen;
+}
+
+sf::Vector2f Bullet::GetPosition()
+{
+	return m_position;
+}
+
+void Flock::CheckBounds()
+{
+	//X axis
+	if (m_position.x < m_bounds.left - m_width)
+	{
+		offScreen = true;
+	}
+
+	else if (m_position.x > m_bounds.left + m_bounds.width + m_width)
+	{
+		offScreen = true;
+	}
+
+	//Y axis
+	if (m_position.y < m_bounds.top - m_height)
+	{
+		offScreen = true;
+	}
+
+	else if (m_position.y > m_bounds.top + m_bounds.height + m_height)
+	{
+		offScreen = true;
+	}
+}
+*/

@@ -32,6 +32,7 @@ public:
 	void flocking();
 	void swarming();
 	void cFormation(int fLeader);
+	void CheckBounds();
 private:
 
 };

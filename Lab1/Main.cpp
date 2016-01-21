@@ -8,6 +8,7 @@
 #include "Predator.h"
 
 void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
+void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight);
 
 int main() {
 	float smallSize = 5;
@@ -36,10 +37,14 @@ int main() {
 
 	Player myPlayer("player", 200, 200, .0, .0);
 
-	//Create flock, vector of shapes, and initialize boids
-	Flock flock;
+	//Create f                                                                                                                                                                   lock, vector of shapes, and initialize boids
+	Flock BS;
+	Flock SS;
 	std::vector<sf::CircleShape> smallShips;
 	std::vector<sf::CircleShape> bigShips;
+
+	//Create the stars
+	std::vector<sf::CircleShape> stars;
 
 	Predator killaPredator("player", 300, 300, .0, .0);
 	sf::Clock clock;
@@ -64,7 +69,7 @@ int main() {
 		shape.setRadius(smallSize);
 
 		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
-		flock.addBoid(small);
+		SS.addBoid(small);
 		bigShips.push_back(shape);
 	}
 
@@ -83,16 +88,18 @@ int main() {
 		shape.setRadius(bigSize);
 
 		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
-		flock.addBoid(big);
+		BS.addBoid(big);
 		smallShips.push_back(shape);
 	}
+
+	createStars(&stars, window_width, window_height);
 
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)){
 			if ((event.type == sf::Event::Closed) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)){
-					window.close();
-				}
+				window.close();
+			}
 			if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space))
 				if (action == "flock")
 					action = "swarm";
@@ -104,7 +111,7 @@ int main() {
 
 		sf::Time time = clock.restart();
 		float elapsedTimeInSeconds = time.asSeconds();
-		
+
 		myPlayer.update(maxEntends, elapsedTimeInSeconds);
 		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 
@@ -114,10 +121,10 @@ int main() {
 		for (int i = 0; i < smallShips.size(); i++)	{
 			window.draw(smallShips[i]);
 			//Matches up the location of the shape to the boid
-			smallShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			smallShips[i].setPosition(SS.getBoid(i).location.x, SS.getBoid(i).location.y);
 			// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 			float theta;
-			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
+			theta = SS.getBoid(i).angle(SS.getBoid(i).velocity);
 			smallShips[i].setRotation(theta);
 
 			// These if statements prevent boids from moving off the screen through warpping
@@ -139,10 +146,10 @@ int main() {
 		for (int i = 0; i < bigShips.size(); i++)	{
 			window.draw(bigShips[i]);
 			//Matches up the location of the shape to the boid
-			bigShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			bigShips[i].setPosition(BS.getBoid(i).location.x, BS.getBoid(i).location.y);
 			// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 			float theta;
-			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
+			theta = BS.getBoid(i).angle(BS.getBoid(i).velocity);
 			bigShips[i].setRotation(theta);
 
 			// These if statements prevent boids from moving off the screen through warpping
@@ -160,22 +167,26 @@ int main() {
 				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y + window_height);
 		}
 
-		//Applies the three rules to each boid in the flock and changes them accordingly.
-		if (action == "flock")
-			flock.flocking();
-		else
-			flock.swarming();
+		for (int i = 0; i < stars.size(); i++){
+			window.draw(stars[i]);
+		}
 
 		window.draw(myPlayer.returnDrawable());
 		window.draw(killaPredator.returnDrawable());
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.
-		if (action == "flock")
-			flock.flocking();
-		else if (action == "swarm")
-			flock.swarming();
-		else
-			flock.cFormation(fLeader); //Pass in the index position of the leader.
+		if (action == "flock"){
+			SS.flocking();
+			BS.flocking();
+		}
+		else if (action == "swarm"){
+			SS.swarming();
+			BS.swarming();
+		}
+		else{
+			SS.cFormation(fLeader); //Pass in the index position of the leader.
+			BS.cFormation(fLeader);
+		}
 
 		standard.setCenter(myPlayer.getPosition());
 		cameraManWalls(&standard, window_width, window_height);
@@ -206,4 +217,21 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 	}
 
 	view->setCenter(newCentre);
+}
+
+void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight) {
+	for (int i = 0; i < 25; i++) {
+		//Boid b(rand() % window_width, rand() % window_height);
+		Boid b(600, 600); //Starts the boid with a random position in the window.
+		sf::CircleShape shape( rand() % 10 + 1, rand() % 10 + 1);
+
+		shape.setPosition( rand() % windowWidth + 10, rand() % WindowHeight + 10 );
+		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+		shape.setFillColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+		shape.setOutlineThickness(1);
+		shape.setRadius(rand() % 10 + 1);
+
+		stars->push_back(shape);
+	}
 }
