@@ -6,6 +6,7 @@ health(4), range(15) {
 	position.y = pYPos;
 	velocity.x = pXVel;
 	velocity.y = pYVel;
+	direction = sf::Vector2f(0, 0);
 }
 
 gameObject::~gameObject() {
@@ -76,4 +77,12 @@ void gameObject::update(sf::Vector2f maxExtends, float time, float angleInDegree
 		position.y = maxExtends.y;
 	}
 #pragma endregion
+}
+
+void gameObject::thrust() {
+	speed += 10;
+}
+
+void gameObject::reverse() {
+	speed -= 10;
 }

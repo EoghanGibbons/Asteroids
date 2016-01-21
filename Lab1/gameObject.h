@@ -17,6 +17,9 @@ public:
 	void update(sf::Vector2f maxExtends, float time);
 	void update(sf::Vector2f maxExtends, float time, float angleInDegrees);
 
+	void thrust();
+	void reverse();
+
 	sf::Vector2f position;
 	sf::Vector2f velocity;
 	float speed;

@@ -51,7 +51,7 @@ sf::Sprite Predator::returnDrawable() {
 }
 
 void Predator::seek(sf::Vector2f playerPos) {
-	//speed = playerPos - position;
+	
 	//speed = normalise(speed);
 }
 
@@ -81,9 +81,8 @@ void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerP
 	sf::Vector2f targetVelocity = direction;
 	targetVelocity = normalise(targetVelocity);
 	targetVelocity = targetVelocity * targetSpeed;
-	/*speed = targetVelocity - velocity;
 	speed = speed * (time * 60);
-	if (lenght(speed) > MAX_speedERATION) {
+	/*if (lenght(speed) > MAX_speedERATION) {
 		speed = normalise(speed);
 		speed = speed * MAX_speedERATION;
 	}*/

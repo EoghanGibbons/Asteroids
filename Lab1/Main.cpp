@@ -30,7 +30,7 @@ int main() {
 	Flock flock;
 	std::vector<sf::CircleShape> shapes;
 
-	Predator killaPredator("player", 300, 300, .3, .3);
+	Predator killaPredator("player", 300, 300, .0, .0);
 	sf::Clock clock;
 
 	sf::View mainView;
@@ -113,6 +113,7 @@ int main() {
 			flock.swarming();
 
 		window.draw(myPlayer.returnDrawable());
+		window.draw(killaPredator.returnDrawable());
 		window.display();
 	}
 

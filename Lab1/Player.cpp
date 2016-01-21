@@ -19,10 +19,10 @@ void Player::update(sf::Vector2f maxExtends, float time){
 		sprite.rotate(5);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		speed += 10;
+		gameObject::thrust();
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		speed -= 10;
+		gameObject::reverse();
 	}
 
 	gameObject::update(maxExtends, time, sprite.getRotation());
