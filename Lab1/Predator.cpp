@@ -26,13 +26,6 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 	
 	float nexAngularRoation = sprite.getRotation() * time;
 
-	if (nexAngularRoation > MAX_ROTATION) {
-		sprite.setRotation(MAX_ROTATION);
-	}
-	
-	else if (-nexAngularRoation > MAX_ROTATION) {
-		sprite.setRotation(-MAX_ROTATION);
-	}
 	//call intelligence methods
 
 	if (true /* playerDistance < range*/){

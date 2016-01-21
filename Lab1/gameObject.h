@@ -22,15 +22,15 @@ public:
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;
-	float speed;
 	sf::Vector2f direction;
+	float speed;
 	float angularRotation;
 	float angularVelocity;
-	const float MAX_SPEED = 5;
-	const float MAX_ROTATION = 360;
-	const float MAX_ANGULAR_VELOCTIY = 25;
+	const float MAX_SPEED = 500;
+	const float MAX_ANGULAR_VELOCTIY = 500;
 	short range;
 	short health;
+
 	int width;
 	int height;
 };

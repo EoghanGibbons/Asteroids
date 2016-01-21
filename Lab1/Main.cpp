@@ -203,12 +203,10 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 	if (view->getCenter().x <= -windowWidth * 0.5f) {
 		newCentre.x = -windowWidth * 0.5f;
 	}
-
 	else if (view->getCenter().x >= windowWidth * 1.5f) {
 		newCentre.x = windowWidth * 1.5f;
 	}
 
-	//Y Axis
 	if (view->getCenter().y <= -windowHeight * 0.5f) {
 		newCentre.y = -windowHeight * 0.5f;
 	}
@@ -220,12 +218,11 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 }
 
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight) {
-	for (int i = 0; i < 25; i++) {
-		//Boid b(rand() % window_width, rand() % window_height);
-		Boid b(600, 600); //Starts the boid with a random position in the window.
+	for (int i = 0; i < 50; i++) {
 		sf::CircleShape shape( rand() % 10 + 1, rand() % 10 + 1);
 
 		shape.setPosition( rand() % windowWidth + 10, rand() % WindowHeight + 10 );
+		shape.setPosition( rand() % windowWidth + 20, rand() % WindowHeight + 10 );
 		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
 		shape.setFillColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
 		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
