@@ -1,6 +1,4 @@
-#include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics\Texture.hpp>
-#include <SFML\System\Vector2.hpp>
 #include <SFML\Window\Keyboard.hpp>
 #include "gameObject.h"
 
@@ -21,6 +19,5 @@ private:
 
 	const int width = 173;
 	const int height = 291;
-	float M_PI = 3.141f;
 	float rotation;
 };

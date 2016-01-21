@@ -7,6 +7,8 @@
 #include <string>
 #include "Predator.h"
 
+void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
+
 int main() {
 	float boidsSize = 5;
 	std::string action = "flock";
@@ -21,12 +23,17 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Eoghan and John's Astroids", sf::Style::Fullscreen);
 
 	sf::Vector2f maxEntends;
-	maxEntends = { 960, 540 };
-	//sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
+	maxEntends = { 3000, 3000 };
+	
+	sf::View fixed = window.getView(); // The 'fixed' view will never change
+	sf::View standard = fixed; // The 'standard' view will be the game world
+	
+	/*sf::View radar = fixed;
+
+	radar.setViewport(sf::FloatRect(0.01f, 0.79f, 0.2, 0.2));
+	radar.zoom(3);*/
 
 	Player myPlayer("player", 200, 200, .0, .0);
-	//Player player(sf::Vector2f(window_width / 2, window_height / 2), sf::Vector2f(1, 0), sf::FloatRect(-window_width, -window_height, window_width * 3, window_height * 3));
-
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
@@ -35,12 +42,11 @@ int main() {
 	Predator killaPredator("player", 300, 300, .0, .0);
 	sf::Clock clock;
 
-	//sf::View mainView;
-	//mainView.setCenter(sf::Vector2f(0 + 960 / 2, 0 + 540 / 2));//(myPlayer.getPosition());
-	//window.setView(mainView);
-
 	int fLeader = 0;
-	for (int i = 0; i < 25; i++) {//Number of boids is hardcoded for testing pusposes.
+	
+	//Create Boids
+	for (int i = 0; i < 25; i++) {
+		//Number of boids is hardcoded for testing pusposes.
 		//Boid b(rand() % window_width, rand() % window_height);
 		Boid b(600, 600); //Starts the boid with a random position in the window.
 		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
@@ -52,25 +58,6 @@ int main() {
 		shape.setOutlineColor(sf::Color(255, 0, 0));
 		shape.setFillColor(sf::Color(255,0,0));
 		shape.setOutlineColor(sf::Color(0,255,0));
-		shape.setOutlineThickness(1);
-		shape.setRadius(boidsSize);
-
-		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
-		flock.addBoid(b);
-		shapes.push_back(shape);
-	}
-
-	for (int i = 0; i < 25; i++) {//Number of boids is hardcoded for testing pusposes.
-		Boid b(200, 200); //Starts the boid with a random position in the window.
-		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
-		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
-
-		//Changing the Visual Properties of the shape
-		shape.setPosition(b.location.x, b.location.y); //Sets position of shape to random location that boid was set to.
-		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
-		shape.setOutlineColor(sf::Color(255, 0, 0));
-		shape.setFillColor(sf::Color(255, 0, 0));
-		shape.setOutlineColor(sf::Color(0, 255, 0));
 		shape.setOutlineThickness(1);
 		shape.setRadius(boidsSize);
 
@@ -99,7 +86,6 @@ int main() {
 		
 		myPlayer.update(maxEntends, elapsedTimeInSeconds);
 		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
-		//mainView.move(myPlayer.getVelocity().x, myPlayer.getVelocity().y);
 
 		window.clear();
 
@@ -148,8 +134,34 @@ int main() {
 			flock.swarming();
 		else
 			flock.cFormation(fLeader); //Pass in the index position of the leader.
+
+		standard.setCenter(myPlayer.getPosition());
+		cameraManWalls(&standard, window_width, window_height);
+		window.setView(standard);
 		window.display();
 	}
 
 	return 0;
+}
+
+void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
+	sf::Vector2f newCentre = view->getCenter();
+
+	if (view->getCenter().x <= -windowWidth * 0.5f) {
+		newCentre.x = -windowWidth * 0.5f;
+	}
+
+	else if (view->getCenter().x >= windowWidth * 1.5f) {
+		newCentre.x = windowWidth * 1.5f;
+	}
+
+	//Y Axis
+	if (view->getCenter().y <= -windowHeight * 0.5f) {
+		newCentre.y = -windowHeight * 0.5f;
+	}
+	else if (view->getCenter().y >= windowHeight * 1.5f) {
+		newCentre.y = windowHeight * 1.5f;
+	}
+
+	view->setCenter(newCentre);
 }
