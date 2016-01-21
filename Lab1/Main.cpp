@@ -10,7 +10,8 @@
 void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
 
 int main() {
-	float boidsSize = 5;
+	float smallSize = 5;
+	float bigSize = 20;
 	std::string action = "flock";
 
 	//Gets the resolution, size, and bits per pixel for the screen of the PC that is running this program.
@@ -37,7 +38,8 @@ int main() {
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
-	std::vector<sf::CircleShape> shapes;
+	std::vector<sf::CircleShape> smallShips;
+	std::vector<sf::CircleShape> bigShips;
 
 	Predator killaPredator("player", 300, 300, .0, .0);
 	sf::Clock clock;
@@ -48,22 +50,41 @@ int main() {
 	for (int i = 0; i < 25; i++) {
 		//Number of boids is hardcoded for testing pusposes.
 		//Boid b(rand() % window_width, rand() % window_height);
-		Boid b(600, 600); //Starts the boid with a random position in the window.
+		Boid small(600, 600); //Starts the boid with a random position in the window.
 		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
 
 		//Changing the Visual Properties of the shape
-		shape.setPosition(b.location.x, b.location.y); //Sets position of shape to random location that boid was set to.
+		shape.setPosition(small.location.x, small.location.y); //Sets position of shape to random location that boid was set to.
 		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
 		shape.setOutlineColor(sf::Color(255, 0, 0));
-		shape.setFillColor(sf::Color(255,0,0));
+		shape.setFillColor(sf::Color(0,0,255));
 		shape.setOutlineColor(sf::Color(0,255,0));
 		shape.setOutlineThickness(1);
-		shape.setRadius(boidsSize);
+		shape.setRadius(smallSize);
 
 		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
-		flock.addBoid(b);
-		shapes.push_back(shape);
+		flock.addBoid(small);
+		bigShips.push_back(shape);
+	}
+
+	for (int i = 0; i < 25; i++) {//Number of boids is hardcoded for testing pusposes.
+		Boid big(200, 200); //Starts the boid with a random position in the window.
+		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
+		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
+
+		//Changing the Visual Properties of the shape
+		shape.setPosition(big.location.x, big.location.y); //Sets position of shape to random location that boid was set to.
+		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
+		shape.setOutlineColor(sf::Color(0, 0, 255));
+		shape.setFillColor(sf::Color(255, 0, 0));
+		shape.setOutlineColor(sf::Color(0, 255, 0));
+		shape.setOutlineThickness(1);
+		shape.setRadius(bigSize);
+
+		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
+		flock.addBoid(big);
+		smallShips.push_back(shape);
 	}
 
 	while (window.isOpen()) {
@@ -90,30 +111,45 @@ int main() {
 		window.clear();
 
 		//Draws all of the Boids out, and applies functions that are needed to update.
-		for (int i = 0; i < shapes.size(); i++)	{
-			window.draw(shapes[i]);
-
+		for (int i = 0; i < bigShips.size(); i++)	{
+			window.draw(smallShips[i]);
+			window.draw(bigShips[i]);
 			//Matches up the location of the shape to the boid
-			shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
-
+			smallShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			bigShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
 			// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 			float theta;
 			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
-			shapes[i].setRotation(theta);
+			smallShips[i].setRotation(theta);
+			bigShips[i].setRotation(theta);
 
 			// These if statements prevent boids from moving off the screen through warpping
 			// If boid exits right boundary
-			if (shapes[i].getPosition().x > maxEntends.x)
-				shapes[i].setPosition(shapes[i].getPosition().x - window_width, shapes[i].getPosition().y);
+			if (smallShips[i].getPosition().x > maxEntends.x)
+				smallShips[i].setPosition(smallShips[i].getPosition().x - window_width, smallShips[i].getPosition().y);
 			// If boid exits bottom boundary
-			if (shapes[i].getPosition().y > maxEntends.y)
-				shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y - window_height);
+			if (smallShips[i].getPosition().y > maxEntends.y)
+				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y - window_height);
 			// If boid exits left boundary
-			if (shapes[i].getPosition().x < 0)
-				shapes[i].setPosition(shapes[i].getPosition().x + window_width, shapes[i].getPosition().y);
+			if (smallShips[i].getPosition().x < 0)
+				smallShips[i].setPosition(smallShips[i].getPosition().x + window_width, smallShips[i].getPosition().y);
 			// If boid exits top boundary
-			if (shapes[i].getPosition().y < 0)
-				shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y + window_height);
+			if (smallShips[i].getPosition().y < 0)
+				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y + window_height);
+
+			// These if statements prevent boids from moving off the screen through warpping
+			// If boid exits right boundary
+			if (bigShips[i].getPosition().x > maxEntends.x)
+				bigShips[i].setPosition(bigShips[i].getPosition().x - window_width, smallShips[i].getPosition().y);
+			// If boid exits bottom boundary
+			if (bigShips[i].getPosition().y > maxEntends.y)
+				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y - window_height);
+			// If boid exits left boundary
+			if (bigShips[i].getPosition().x < 0)
+				bigShips[i].setPosition(bigShips[i].getPosition().x + window_width, bigShips[i].getPosition().y);
+			// If boid exits top boundary
+			if (bigShips[i].getPosition().y < 0)
+				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y + window_height);
 		}
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.
