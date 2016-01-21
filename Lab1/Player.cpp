@@ -4,19 +4,19 @@
 Player::Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel):
 gameObject(pXPos, pYPos, pXVel, pYVel){
 	texture.loadFromFile(name+".png");
-	sprite.setTexture(texture);
-	sprite.setScale(.5, .5);
-	sprite.setOrigin((width / 2),(height / 2));
-	speed = 0.02f;
+	gameObject::sprite.setTexture(texture);
+	gameObject::sprite.setScale(.5, .5);
+	gameObject::sprite.setOrigin((width / 2), (height / 2));
+	gameObject::speed = 0.02f;
 }
 
 void Player::update(sf::Vector2f maxExtends, float time){
 	//Player roation and Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		sprite.rotate(-5);
+		gameObject::angularVelocity++;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		sprite.rotate(5);
+		gameObject::angularVelocity--;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		gameObject::thrust();
@@ -25,9 +25,7 @@ void Player::update(sf::Vector2f maxExtends, float time){
 		gameObject::reverse();
 	}
 
-	gameObject::update(maxExtends, time, sprite.getRotation());
-
-	sprite.setPosition(position);
+	gameObject::update(maxExtends, time, true);
 }
 
 sf::Sprite Player::returnDrawable(){

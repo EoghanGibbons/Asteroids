@@ -15,7 +15,7 @@ public:
 	float lenght(sf::Vector2f);
 	sf::Sprite sprite;
 	void update(sf::Vector2f maxExtends, float time);
-	void update(sf::Vector2f maxExtends, float time, float angleInDegrees);
+	void update(sf::Vector2f maxExtends, float time, bool controlable);
 
 	void thrust();
 	void reverse();

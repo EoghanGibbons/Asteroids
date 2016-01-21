@@ -111,17 +111,14 @@ int main() {
 		window.clear();
 
 		//Draws all of the Boids out, and applies functions that are needed to update.
-		for (int i = 0; i < bigShips.size(); i++)	{
+		for (int i = 0; i < smallShips.size(); i++)	{
 			window.draw(smallShips[i]);
-			window.draw(bigShips[i]);
 			//Matches up the location of the shape to the boid
 			smallShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
-			bigShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
 			// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 			float theta;
 			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
 			smallShips[i].setRotation(theta);
-			bigShips[i].setRotation(theta);
 
 			// These if statements prevent boids from moving off the screen through warpping
 			// If boid exits right boundary
@@ -136,6 +133,17 @@ int main() {
 			// If boid exits top boundary
 			if (smallShips[i].getPosition().y < 0)
 				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y + window_height);
+		}
+
+		//Draws all of the Boids out, and applies functions that are needed to update.
+		for (int i = 0; i < bigShips.size(); i++)	{
+			window.draw(bigShips[i]);
+			//Matches up the location of the shape to the boid
+			bigShips[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
+			float theta;
+			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
+			bigShips[i].setRotation(theta);
 
 			// These if statements prevent boids from moving off the screen through warpping
 			// If boid exits right boundary
@@ -160,8 +168,6 @@ int main() {
 
 		window.draw(myPlayer.returnDrawable());
 		window.draw(killaPredator.returnDrawable());
-
-
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.
 		if (action == "flock")
