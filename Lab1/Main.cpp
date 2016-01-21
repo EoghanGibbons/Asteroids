@@ -70,7 +70,7 @@ int main() {
 		shapes.push_back(shape);
 	}
 
-	createStars(&stars, window_width, window_height);
+	createStars(&stars, maxEntends.x, maxEntends.y);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -173,7 +173,7 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 }
 
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight) {
-	for (int i = 0; i < 50; i++) {
+	for (int i = 0; i < 150; i++) {
 		sf::CircleShape shape( rand() % 10 + 1, rand() % 10 + 1);
 
 		shape.setPosition( rand() % windowWidth + 20, rand() % WindowHeight + 10 );
