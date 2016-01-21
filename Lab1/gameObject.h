@@ -28,7 +28,7 @@ public:
 	float angularVelocity;
 	const float MAX_SPEED = 5;
 	const float MAX_ROTATION = 360;
-	const float MAX_speedERATION = 500;
+	const float MAX_ANGULAR_VELOCTIY = 25;
 	short range;
 	short health;
 	int width;

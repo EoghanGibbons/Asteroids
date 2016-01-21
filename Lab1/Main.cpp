@@ -8,6 +8,7 @@
 #include "Predator.h"
 
 void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
+void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight);
 
 int main() {
 	float boidsSize = 5;
@@ -35,9 +36,12 @@ int main() {
 
 	Player myPlayer("player", 200, 200, .0, .0);
 
-	//Create flock, vector of shapes, and initialize boids
+	//Create f                                                                                                                                                                   lock, vector of shapes, and initialize boids
 	Flock flock;
 	std::vector<sf::CircleShape> shapes;
+
+	//Create the stars
+	std::vector<sf::CircleShape> stars;
 
 	Predator killaPredator("player", 300, 300, .0, .0);
 	sf::Clock clock;
@@ -65,6 +69,8 @@ int main() {
 		flock.addBoid(b);
 		shapes.push_back(shape);
 	}
+
+	createStars(&stars, window_width, window_height);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -116,6 +122,10 @@ int main() {
 				shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y + window_height);
 		}
 
+		for (int i = 0; i < stars.size(); i++){
+			window.draw(stars[i]);
+		}
+
 		//Applies the three rules to each boid in the flock and changes them accordingly.
 		if (action == "flock")
 			flock.flocking();
@@ -164,4 +174,21 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 	}
 
 	view->setCenter(newCentre);
+}
+
+void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight) {
+	for (int i = 0; i < 25; i++) {
+		//Boid b(rand() % window_width, rand() % window_height);
+		Boid b(600, 600); //Starts the boid with a random position in the window.
+		sf::CircleShape shape( rand() % 10 + 1, rand() % 10 + 1);
+
+		shape.setPosition( rand() % windowWidth % 10, rand() % WindowHeight + 10 );
+		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+		shape.setFillColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
+		shape.setOutlineThickness(1);
+		shape.setRadius(rand() % 10 + 1);
+
+		stars->push_back(shape);
+	}
 }
