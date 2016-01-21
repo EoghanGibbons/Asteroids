@@ -57,18 +57,12 @@ void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) {
 	else if (angularVelocity < -1 * MAX_ANGULAR_VELOCTIY){
 		angularVelocity = MAX_ANGULAR_VELOCTIY * -1;
 	}
-	
-	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180) )*-1 );
-	sf::Vector2f nextVelocity(direction * speed * time);
 
-	if (lenght(nextVelocity) > MAX_SPEED) {
-		velocity = normalise(nextVelocity);
-	}
-	else {
-		velocity = nextVelocity;
-	}
+	//Drag
+	angularVelocity *= .9;
 
-	position += velocity;
+	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180))*-1);
+	velocity = sf::Vector2f(direction * speed * time);
 
 #pragma region Wrap Around World
 	if (position.x > maxExtends.x){
@@ -86,14 +80,21 @@ void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) {
 	}
 #pragma endregion
 
+	position += velocity;
 	sprite.setRotation(angularRotation);
 	sprite.setPosition(position);
 }
 
 void gameObject::thrust() {
-	speed += 10;
+	if (speed < MAX_SPEED)
+		speed += 10;
+	else
+		speed = MAX_SPEED;
 }
 
 void gameObject::reverse() {
-	speed -= 10;
+	if (speed > -MAX_SPEED)
+		speed -= 10;
+	else
+		speed = -MAX_SPEED;
 }

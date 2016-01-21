@@ -13,12 +13,12 @@ gameObject(pXPos, pYPos, pXVel, pYVel){
 void Player::update(sf::Vector2f maxExtends, float time){
 	//Player roation and Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		gameObject::angularVelocity++;
+		gameObject::angularVelocity -= 10;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		gameObject::angularVelocity--;
+		gameObject::angularVelocity += 10;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		gameObject::thrust();
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -29,13 +29,13 @@ void Player::update(sf::Vector2f maxExtends, float time){
 }
 
 sf::Sprite Player::returnDrawable(){
-	return sprite;
+	return gameObject::sprite;
 }
 
 sf::Vector2f Player::getPosition() {
-	return position;
+	return gameObject::position;
 }
 
 sf::Vector2f Player::getVelocity() {
-	return velocity;
+	return gameObject::velocity;
 }
