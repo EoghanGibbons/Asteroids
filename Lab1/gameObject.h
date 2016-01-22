@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include <SFML\Graphics\Texture.hpp>
 #include <SFML\System\Vector2.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 

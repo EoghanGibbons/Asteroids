@@ -10,7 +10,6 @@ public:
 		gameObject::~gameObject();
 	}
 	void update(sf::Vector2f maxExtends, float time);
-	sf::Sprite returnDrawable();
 private:
 	sf::Texture texture;
 };

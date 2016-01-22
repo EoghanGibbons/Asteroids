@@ -12,16 +12,12 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight);
 
 int main() {
-	float border = 3000;
+	sf::Vector2f maxEntends;
+	maxEntends = { 3000, 3000 };
+
 	float smallSize = 5;
 	float bigSize = 20;
 	std::string action = "flock";
-
-	std::vector<Astroids> astroids;
-
-	for (int i = 0; i < 25; i++){
-		astroids.push_back(Astroids("noName", sf::Vector2f(rand() % 3000 + 10, rand() % 3000 + 10), sf::Vector2f(rand() % 200 + 10, rand() % 200 + 10)));
-	}
 
 	//Gets the resolution, size, and bits per pixel for the screen of the PC that is running this program.
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
@@ -31,9 +27,6 @@ int main() {
 	//sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Eoghan and John's Astroids", sf::Style::Fullscreen);
 	sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
 
-	sf::Vector2f maxEntends;
-	maxEntends = { 3000, 3000 };
-	
 	sf::View fixed = window.getView(); // The 'fixed' view will never change
 	sf::View standard = fixed; // The 'standard' view will be the game world
 	sf::View radar = fixed;
@@ -50,7 +43,10 @@ int main() {
 	sprite.setScale((window_width / sprite.getLocalBounds().width) * 3, (window_height / sprite.getLocalBounds().height) * 3);
 	sprite.setPosition(window_width / 2, window_height / 2);
 
-
+	std::vector<Astroids> astroids;
+	for (int i = 0; i < 25; i++){
+		astroids.push_back(Astroids("asteroid", sf::Vector2f(rand() % 3000 + 10, rand() % 3000 + 10), sf::Vector2f(rand() % 200 + 10, rand() % 200 + 10)));
+	}
 	Player myPlayer("player", sf::Vector2f(200, 200), sf::Vector2f(.0, .0));
 
 	//Create f                                                                                                                                                                   lock, vector of shapes, and initialize boids
@@ -152,10 +148,12 @@ int main() {
 
 		sf::Time time = clock.restart();
 		float elapsedTimeInSeconds = time.asSeconds();
-
+		for (int i = 0; i < astroids.size(); i++){
+			astroids[i].update(maxEntends, elapsedTimeInSeconds);
+		}
 		myPlayer.update(maxEntends, elapsedTimeInSeconds);
 		myFactory.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
-
+		
 		window.clear();
 
 		standard.setCenter(myPlayer.getPosition());
@@ -216,14 +214,13 @@ int main() {
 			window.draw(stars[i]);
 		}
 
+		for (int i = 0; i < astroids.size(); i++){
+			window.draw(astroids[i].returnDrawable());
+		}
 		for (int i = 0; i < myPlayer.bullets.size(); i++) {
 			window.draw(myPlayer.bullets[i].returnDrawable());
 		}
-		/*for (int i = 0; i < myFactory.predators.size(); i++) {
-			for (int j = 0; myFactory.predators[i].bullets.size(); j++){
-				window.draw(myFactory.predators[i].bullets[j].returnDrawable());
-			}
-		}*/
+
 		for (int i = 0; i < myFactory.predators.size(); i++){
 			window.draw(myFactory.predators[i].returnDrawable());
 		}
