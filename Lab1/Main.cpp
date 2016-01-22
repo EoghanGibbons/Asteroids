@@ -11,6 +11,7 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight);
 
 int main() {
+	float border = 3000;
 	float smallSize = 5;
 	float bigSize = 20;
 	std::string action = "flock";
@@ -53,7 +54,33 @@ int main() {
 	//Create the stars
 	std::vector<sf::CircleShape> stars;
 
-	Predator killaPredator("player", sf::Vector2f(300, 300), sf::Vector2f(.0, .0));
+	//draws our game border
+	sf::Vertex line[] =
+	{
+		sf::Vertex(sf::Vector2f(0, 0)),
+		sf::Vertex(sf::Vector2f(3000, 0)),
+	};
+	//draws our game border
+	sf::Vertex line2[] =
+	{
+		sf::Vertex(sf::Vector2f(3000, 0)),
+		sf::Vertex(sf::Vector2f(3000, 3000)),
+
+	};
+	//draws our game border
+	sf::Vertex line3[] =
+	{
+		sf::Vertex(sf::Vector2f(3000, 3000)),
+		sf::Vertex(sf::Vector2f(0, 3000))
+	};
+	//draws our game border
+	sf::Vertex line4[] =
+	{
+		sf::Vertex(sf::Vector2f(0, 0)),
+		sf::Vertex(sf::Vector2f(0, 3000)),
+	};
+
+	Predator killaPredator("player", sf::Vector2f(1000, 1000), sf::Vector2f(.0, .0));
 	sf::Clock clock;
 
 	int fLeader = 0;
@@ -65,7 +92,6 @@ int main() {
 		//Boid small(600, 600); //Starts the boid with a random position in the window.
 		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
-
 		//Changing the Visual Properties of the shape
 		shape.setPosition(small.location.x, small.location.y); //Sets position of shape to random location that boid was set to.
 		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
@@ -188,6 +214,10 @@ int main() {
 
 		window.draw(myPlayer.returnDrawable());
 		window.draw(killaPredator.returnDrawable());
+		window.draw(line, 2, sf::Lines);
+		window.draw(line2, 2, sf::Lines);
+		window.draw(line3, 2, sf::Lines);
+		window.draw(line4, 2, sf::Lines);
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.
 		if (action == "flock"){
