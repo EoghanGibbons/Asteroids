@@ -112,6 +112,9 @@ int main() {
 		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 
 		window.clear();
+		for (int i = 0; i < stars.size(); i++){
+			window.draw(stars[i]);
+		}
 
 		//Draws all of the Boids out, and applies functions that are needed to update.
 		for (int i = 0; i < smallShips.size(); i++)	{
@@ -163,9 +166,7 @@ int main() {
 				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y + maxEntends.y);
 		}
 
-		for (int i = 0; i < stars.size(); i++){
-			window.draw(stars[i]);
-		}
+		
 
 		window.draw(myPlayer.returnDrawable());
 		window.draw(killaPredator.returnDrawable());

@@ -51,7 +51,7 @@ public:
 			velocity = Pvector(rand() % 3 - 1, rand() % 3 - 1);
 		}
 		else {
-			maxSpeed = 3.5;
+			maxSpeed = 2.5;
 			maxForce = 0.5;
 			velocity = Pvector(rand() % 3 - 2, rand() % 3 - 2); // Allows for range of -2 -> 2
 		}

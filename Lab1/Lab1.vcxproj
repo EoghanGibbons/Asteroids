@@ -68,6 +68,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Astroids.cpp" />
     <ClCompile Include="Boid.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Flock.cpp" />
@@ -78,6 +79,7 @@
     <ClCompile Include="Pvector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Astroids.h" />
     <ClInclude Include="Boid.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Flock.h" />
