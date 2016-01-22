@@ -32,6 +32,16 @@ int main() {
 	radar.setViewport(sf::FloatRect(0.01f, 0.79f, 0.2, 0.2));
 	radar.zoom(3);
 
+	//Create radar background
+	sf::Texture texture;
+	texture.loadFromFile("radar.png");
+	sf::Sprite sprite;
+	sprite.setTexture(texture, true);
+	sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2));
+	sprite.setScale((window_width / sprite.getLocalBounds().width) * 3, (window_height / sprite.getLocalBounds().height) * 3);
+	sprite.setPosition(window_width / 2, window_height / 2);
+
+
 	Player myPlayer("player", sf::Vector2f(200, 200), sf::Vector2f(.0, .0));
 
 	//Create f                                                                                                                                                                   lock, vector of shapes, and initialize boids
@@ -51,8 +61,8 @@ int main() {
 	//Create Boids
 	for (int i = 0; i < 25; i++) {
 		//Number of boids is hardcoded for testing pusposes.
-		//Boid b(rand() % window_width, rand() % window_height);
-		Boid small(600, 600); //Starts the boid with a random position in the window.
+		Boid small(rand() % 3000, rand() % 3000);
+		//Boid small(600, 600); //Starts the boid with a random position in the window.
 		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
 
@@ -71,7 +81,8 @@ int main() {
 	}
 
 	for (int i = 0; i < 25; i++) {//Number of boids is hardcoded for testing pusposes.
-		Boid big(200, 200); //Starts the boid with a random position in the window.
+		Boid big(rand() % 3000, rand() % 3000);
+		//Boid big(200, 200); //Starts the boid with a random position in the window.
 		//Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(8, 3); //Shape with a radius of 10 and 3 points (Making it a triangle)
 
@@ -112,6 +123,10 @@ int main() {
 		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 
 		window.clear();
+
+		standard.setCenter(myPlayer.getPosition());
+		cameraManWalls(&standard, maxEntends.x, maxEntends.y);
+		window.setView(standard);
 
 		//Draws all of the Boids out, and applies functions that are needed to update.
 		for (int i = 0; i < smallShips.size(); i++)	{
@@ -170,8 +185,9 @@ int main() {
 		for (int i = 0; i < myPlayer.bullets.size(); i++) {
 			window.draw(myPlayer.bullets[i].returnDrawable());
 		}
-		window.draw(killaPredator.returnDrawable());
+
 		window.draw(myPlayer.returnDrawable());
+		window.draw(killaPredator.returnDrawable());
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.
 		if (action == "flock"){
@@ -187,12 +203,20 @@ int main() {
 			BS.cFormation(fLeader);
 		}
 
-		standard.setCenter(myPlayer.getPosition());
-		cameraManWalls(&standard, maxEntends.x, maxEntends.y);
-		window.setView(standard);
+		//draws radar and all objecta within radar
+		window.setView(radar);
+		window.draw(sprite);
+		window.draw(myPlayer.returnDrawable());
+		window.draw(killaPredator.returnDrawable());
+		for (int i = 0; i < bigShips.size(); i++)	{
+			window.draw(bigShips[i]);
+		}
+		for (int i = 0; i < smallShips.size(); i++)	{
+			window.draw(smallShips[i]);
+		}
+
 		window.display();
 	}
-
 	return 0;
 }
 
@@ -212,7 +236,6 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 	else if (view->getCenter().y >= windowHeight * 1.5f) {
 		newCentre.y = windowHeight * 1.5f;
 	}
-
 	view->setCenter(newCentre);
 }
 
@@ -227,7 +250,6 @@ void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int Windo
 		shape.setOutlineColor(sf::Color(rand() % 256, rand() % 256, rand() % 256));
 		shape.setOutlineThickness(1);
 		shape.setRadius(rand() % 10 + 1);
-
 		stars->push_back(shape);
 	}
 }

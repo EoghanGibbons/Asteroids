@@ -10,8 +10,8 @@
 // Global Variables for borders()
 // desktopTemp gets screen resolution of PC running the program
 sf::VideoMode desktopTemp = sf::VideoMode::getDesktopMode();
-const int window_height = desktopTemp.height;
-const int window_width = desktopTemp.width;
+const int window_height = 3000;
+const int window_width = 3000;
 
 #define w_height window_height
 #define w_width window_width
