@@ -4,30 +4,17 @@
 Predator::Predator(std::string name, float pXPos, float pYPos, float pXVel, float pYVel) :
 gameObject(pXPos, pYPos, pXVel, pYVel) {
 	texture.loadFromFile(name + ".png");
-	sprite.setTexture(texture);
+	gameObject::sprite.setTexture(texture);
 	currentState = State::seeking;
-	//l8r m8
-	//sprite.setScale(.5, .5);
-	//sprite.setOrigin(width / 2, height / 2);
-	angularRotation = 0;
-
-	width = 173;
-	height = 291;
 }
 
 void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
 	seek(playerPos);
-
-	if (lenght(playerPos) - lenght(position) < 50){
-		arrive(20, 50, playerPos, time);
-	}
-
-	gameObject::update(maxExtends, time); 
-	
-	float nexAngularRoation = sprite.getRotation() * time;
+	//if (lenght(playerPos) - lenght(position) < 50){
+	//	arrive(20, 50, playerPos, time);
+	//}
 
 	//call intelligence methods
-
 	if (true /* playerDistance < range*/){
 		fire();
 	}
@@ -36,16 +23,16 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 		flock();
 	}
 
-	sprite.setPosition(position);
+	gameObject::update(maxExtends, time);
 }
 
 sf::Sprite Predator::returnDrawable() {
-	return sprite;
+	return gameObject::sprite;
 }
 
 void Predator::seek(sf::Vector2f playerPos) {
-	
-	//speed = normalise(speed);
+	gameObject::sprite.setRotation(gameObject::angleBetween(gameObject::position, playerPos));
+	gameObject::speed = 20;
 }
 
 void Predator::flock() {

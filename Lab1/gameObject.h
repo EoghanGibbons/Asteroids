@@ -16,7 +16,8 @@ public:
 	sf::Sprite sprite;
 	void update(sf::Vector2f maxExtends, float time);
 	void update(sf::Vector2f maxExtends, float time, bool controlable);
-
+	float angleBetween(sf::Vector2f vec1, sf::Vector2f vec2);
+	float dotProduct(sf::Vector2f vec1, sf::Vector2f vec2);
 	void thrust();
 	void reverse();
 

@@ -38,15 +38,14 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 		position.y = maxExtends.y - (sprite.getGlobalBounds().height);
 	}
 #pragma endregion
+	//Drag
 
-	direction = sf::Vector2f(cos( 0 * PI / 180), sin( 0 * PI / 180));
+	//direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180))*-1);
+	//velocity = sf::Vector2f(direction * speed * time);
 
-	sf::Vector2f nextVelocity(direction * speed * time);
-	
-	if ( lenght(nextVelocity) > MAX_SPEED ) {
-		velocity = normalise(nextVelocity);
-	}
-	position = position + velocity* time;
+	position += sf::Vector2f(velocity.x, velocity.y) * (time * speed);
+	//position += velocity;
+	sprite.setPosition(position);
 }
 
 void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) { //controllable gameObject
@@ -97,4 +96,24 @@ void gameObject::reverse() {
 		speed -= 10;
 	else
 		speed = -MAX_SPEED;
+}
+
+float gameObject::angleBetween(sf::Vector2f vec1, sf::Vector2f vec2){
+	if (vec1.x == 0 && vec1.y == 0) return 0.0f;
+	if (vec2.x == 0 && vec2.y == 0) return 0.0f;
+	
+	vec1 = normalise(vec1);
+	vec2 = normalise(vec2);
+
+	if (dotProduct(vec1, vec2) <= -1) {
+		return PI;
+	}
+	else if (dotProduct(vec1, vec2) >= 1) {
+		return 0;
+	}
+	return acos(dotProduct(vec1, vec2));
+}
+
+float gameObject::dotProduct(sf::Vector2f vec1, sf::Vector2f vec2) {
+	return ((vec1.x * vec2.x) + (vec1.y * vec2.y) );
 }
