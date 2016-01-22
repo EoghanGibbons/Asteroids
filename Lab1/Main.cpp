@@ -20,8 +20,6 @@ int main() {
 	const int window_height = desktop.height;
 	const int window_width = desktop.width;
 
-	//Having the style of "None" gives a false-fullscreen effect for easier closing and access.
-	//No FPS limit of V-sync setting needed for it may cause unnecessary slowdown.
 	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Eoghan and John's Astroids", sf::Style::Fullscreen);
 
 	sf::Vector2f maxEntends;
@@ -29,11 +27,10 @@ int main() {
 	
 	sf::View fixed = window.getView(); // The 'fixed' view will never change
 	sf::View standard = fixed; // The 'standard' view will be the game world
-	
-	/*sf::View radar = fixed;
+	sf::View radar = fixed;
 
 	radar.setViewport(sf::FloatRect(0.01f, 0.79f, 0.2, 0.2));
-	radar.zoom(3);*/
+	radar.zoom(3);
 
 	Player myPlayer("player", 200, 200, .0, .0);
 
@@ -80,7 +77,6 @@ int main() {
 
 		//Changing the Visual Properties of the shape
 		shape.setPosition(big.location.x, big.location.y); //Sets position of shape to random location that boid was set to.
-		//shape.setPosition(window_width, window_height); //Testing purposes, starts all shapes in the center of screen.
 		shape.setOutlineColor(sf::Color(0, 0, 255));
 		shape.setFillColor(sf::Color(255, 0, 0));
 		shape.setOutlineColor(sf::Color(0, 255, 0));
@@ -130,16 +126,16 @@ int main() {
 			// These if statements prevent boids from moving off the screen through warpping
 			// If boid exits right boundary
 			if (smallShips[i].getPosition().x > maxEntends.x)
-				smallShips[i].setPosition(smallShips[i].getPosition().x - window_width, smallShips[i].getPosition().y);
+				smallShips[i].setPosition(smallShips[i].getPosition().x - maxEntends.x, smallShips[i].getPosition().y);
 			// If boid exits bottom boundary
 			if (smallShips[i].getPosition().y > maxEntends.y)
-				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y - window_height);
+				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y - maxEntends.y);
 			// If boid exits left boundary
 			if (smallShips[i].getPosition().x < 0)
-				smallShips[i].setPosition(smallShips[i].getPosition().x + window_width, smallShips[i].getPosition().y);
+				smallShips[i].setPosition(smallShips[i].getPosition().x + maxEntends.x, smallShips[i].getPosition().y);
 			// If boid exits top boundary
 			if (smallShips[i].getPosition().y < 0)
-				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y + window_height);
+				smallShips[i].setPosition(smallShips[i].getPosition().x, smallShips[i].getPosition().y + maxEntends.y);
 		}
 
 		//Draws all of the Boids out, and applies functions that are needed to update.
@@ -155,16 +151,16 @@ int main() {
 			// These if statements prevent boids from moving off the screen through warpping
 			// If boid exits right boundary
 			if (bigShips[i].getPosition().x > maxEntends.x)
-				bigShips[i].setPosition(bigShips[i].getPosition().x - window_width, smallShips[i].getPosition().y);
+				bigShips[i].setPosition(bigShips[i].getPosition().x - maxEntends.x, smallShips[i].getPosition().y);
 			// If boid exits bottom boundary
 			if (bigShips[i].getPosition().y > maxEntends.y)
-				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y - window_height);
+				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y - maxEntends.y);
 			// If boid exits left boundary
 			if (bigShips[i].getPosition().x < 0)
-				bigShips[i].setPosition(bigShips[i].getPosition().x + window_width, bigShips[i].getPosition().y);
+				bigShips[i].setPosition(bigShips[i].getPosition().x + maxEntends.x, bigShips[i].getPosition().y);
 			// If boid exits top boundary
 			if (bigShips[i].getPosition().y < 0)
-				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y + window_height);
+				bigShips[i].setPosition(bigShips[i].getPosition().x, bigShips[i].getPosition().y + maxEntends.y);
 		}
 
 		for (int i = 0; i < stars.size(); i++){
@@ -189,7 +185,7 @@ int main() {
 		}
 
 		standard.setCenter(myPlayer.getPosition());
-		cameraManWalls(&standard, window_width, window_height);
+		cameraManWalls(&standard, maxEntends.x, maxEntends.y);
 		window.setView(standard);
 		window.display();
 	}
@@ -218,7 +214,7 @@ void cameraManWalls(sf::View* view, float windowWidth, float windowHeight) {
 }
 
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight) {
-	for (int i = 0; i < 150; i++) {
+	for (int i = 0; i < 500; i++) {
 		sf::CircleShape shape( rand() % 10 + 1, rand() % 10 + 1);
 
 		shape.setPosition( rand() % windowWidth + 10, rand() % WindowHeight + 10 );
