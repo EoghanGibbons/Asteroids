@@ -225,8 +225,8 @@ void Boid::borders()
 {
 	if (location.x < 0) location.x += w_width;
 	if (location.y < 0) location.y += w_height;
-	if (location.x > 1000) location.x -= w_width;
-	if (location.y > 1000) location.y -= w_height;
+	if (location.x > 3000) location.x -= w_width;
+	if (location.y > 3000) location.y -= w_height;
 }
 
 // Calculates the angle for the velocity of a boid which allows the visual 

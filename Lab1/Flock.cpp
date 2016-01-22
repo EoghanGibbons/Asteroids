@@ -56,7 +56,7 @@ void Flock::cFormation(int fLeader)
 	{
 		Pvector	sub(0, 0);
 		Pvector sum(0, 0);
-		int npcRadius = 10;
+		int npcRadius = 20;
 		int closeEnough = 10;
 		float angleAroundCircle = 0.0;
 		Pvector targetSlot(0, 0);
