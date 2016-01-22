@@ -5,7 +5,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include <string>
-#include "Predator.h"
+#include "Factory.h"
 
 void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight);
@@ -20,7 +20,8 @@ int main() {
 	const int window_height = desktop.height;
 	const int window_width = desktop.width;
 
-	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Eoghan and John's Astroids", sf::Style::Fullscreen);
+	//sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Eoghan and John's Astroids", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(960, 540), "Astroids");
 
 	sf::Vector2f maxEntends;
 	maxEntends = { 3000, 3000 };
@@ -43,7 +44,8 @@ int main() {
 	//Create the stars
 	std::vector<sf::CircleShape> stars;
 
-	Predator killaPredator("player", sf::Vector2f(300, 300), sf::Vector2f(.0, .0));
+	//Predator killaPredator("predator", sf::Vector2f(300, 300), sf::Vector2f(.0, .0));
+	Factory factOry("factory", sf::Vector2f(300, 300), sf::Vector2f(0.0f, 0.0f));
 	sf::Clock clock;
 
 	int fLeader = 0;
@@ -109,7 +111,7 @@ int main() {
 		float elapsedTimeInSeconds = time.asSeconds();
 
 		myPlayer.update(maxEntends, elapsedTimeInSeconds);
-		killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
+		//killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 
 		window.clear();
 
@@ -170,7 +172,8 @@ int main() {
 		for (int i = 0; i < myPlayer.bullets.size(); i++) {
 			window.draw(myPlayer.bullets[i].returnDrawable());
 		}
-		window.draw(killaPredator.returnDrawable());
+		//window.draw(killaPredator.returnDrawable());
+		window.draw(factOry.returnDrawable());
 		window.draw(myPlayer.returnDrawable());
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.

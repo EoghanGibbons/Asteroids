@@ -4,12 +4,11 @@
 Factory::Factory(std::string name, sf::Vector2f pPos, sf::Vector2f pVel):
 gameObject(pPos, pVel) {
 	texture.loadFromFile(name + ".png");
-	sprite.setTexture(texture);
+	gameObject::sprite.setTexture(texture);
+	predators.reserve(4);
 }
 
-void Factory::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {						
-	gameObject::update(maxExtends, time);
-
+void Factory::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
 	//call intelligence methods
 	if (true /* playerDistance < range*/){
 		//take evasive action
@@ -21,15 +20,11 @@ void Factory::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time
 	else {
 		//wander();
 	}
-
-	sprite.setPosition(position);
+	
+	gameObject::update(maxExtends, time);
 }
 
-sf::Sprite Factory::returnDrawable() {
-	return sprite;
-}
-
-void Factory::evade() {
+void Factory::Evade() {
 
 }
 

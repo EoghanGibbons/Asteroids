@@ -1,4 +1,5 @@
 #include "Predator.h"
+#include <iostream>
 
 //Constructor
 Predator::Predator(std::string name, sf::Vector2f pPos, sf::Vector2f pVel) :
@@ -9,10 +10,9 @@ gameObject(pPos, pVel) {
 }
 
 void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
-	seek(playerPos);
-	//if (lenght(playerPos) - lenght(position) < 50){
-	//	arrive(20, 50, playerPos, time);
-	//}
+	if (currentState == State::seeking){
+		seek(playerPos);
+	}
 
 	//call intelligence methods
 	if (true /* playerDistance < range*/){
@@ -27,8 +27,8 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 }
 
 void Predator::seek(sf::Vector2f playerPos) {
-	gameObject::sprite.setRotation(gameObject::angleBetween(gameObject::position, playerPos));
-	gameObject::speed = 20;
+	gameObject::angularRotation = gameObject::angleBetween(playerPos, gameObject::position);
+	gameObject::speed = 250;
 }
 
 void Predator::flock() {
@@ -42,7 +42,7 @@ void Predator::fire() {
 }
 
 void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerPos, float time){
-	sf::Vector2f direction = playerPos - position;
+	/* sf::Vector2f direction = playerPos - position;
 	float distance = lenght(direction);
 	float targetSpeed;
 	if (distance > arriveRadius){
@@ -58,7 +58,7 @@ void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerP
 	targetVelocity = normalise(targetVelocity);
 	targetVelocity = targetVelocity * targetSpeed;
 	speed = speed * (time * 60);
-	/*if (lenght(speed) > MAX_speedERATION) {
+	if (lenght(speed) > MAX_speedERATION) {
 		speed = normalise(speed);
 		speed = speed * MAX_speedERATION;
 	}*/

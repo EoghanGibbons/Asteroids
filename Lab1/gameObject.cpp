@@ -1,4 +1,6 @@
 #include "gameObject.h"
+#include <iostream>
+#include <math.h>
 
 gameObject::gameObject(sf::Vector2f pPos, sf::Vector2f pVel):
 position(pPos), velocity(pVel), health(4), range(15) {
@@ -11,9 +13,7 @@ position(pPos), angularRotation(pAngle), speed(pSpeed) {
 	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180))*-1);
 }
 
-gameObject::~gameObject() {
-
-}
+gameObject::~gameObject() {}
 
 float gameObject::lenght(sf::Vector2f vec) {
 	return ((vec.x * vec.x) + ((vec.y * vec.y)));
@@ -42,16 +42,16 @@ float gameObject::angleBetween(sf::Vector2f vec1, sf::Vector2f vec2){
 	if (vec1.x == 0 && vec1.y == 0) return 0.0f;
 	if (vec2.x == 0 && vec2.y == 0) return 0.0f;
 	
-	vec1 = normalise(vec1);
-	vec2 = normalise(vec2);
-
-	if (dotProduct(vec1, vec2) <= -1) {
+	//vec1 = normalise(vec1);
+	//vec2 = normalise(vec2);
+	float x = dotProduct(vec1, vec2);
+	if (x <= -1) {
 		return PI;
 	}
-	else if (dotProduct(vec1, vec2) >= 1) {
+	else if (x >= 1) {
 		return 0;
-	}
-	return acos(dotProduct(vec1, vec2));
+	} 
+	return acos(x);
 }
 
 float gameObject::dotProduct(sf::Vector2f vec1, sf::Vector2f vec2) {
@@ -60,22 +60,6 @@ float gameObject::dotProduct(sf::Vector2f vec1, sf::Vector2f vec2) {
 
 sf::Sprite gameObject::returnDrawable(){
 	return sprite;
-}
-
-void gameObject::wrapRound(sf::Vector2f maxExtends){
-	if (position.x > maxExtends.x){
-		position.x = 0;
-	}
-	else if (position.x < 0){
-		position.x = maxExtends.x;
-	}
-
-	if (position.y > maxExtends.y + 100){
-		position.y = 0;
-	}
-	else if (position.y < 0){
-		position.y = maxExtends.y - (sprite.getGlobalBounds().height);
-	}
 }
 
 /////////////////////////////
@@ -93,6 +77,7 @@ void gameObject::update(float time) {
 void gameObject::update(sf::Vector2f maxExtends, float time) {
 	wrapRound(maxExtends);
 
+	sprite.setRotation(angularRotation);
 	direction = sf::Vector2f((cos((sprite.getRotation() + 90)* PI / 180)*-1), (sin((sprite.getRotation() + 90)* PI / 180))*-1);
 	velocity = sf::Vector2f(direction * speed * time);
 
@@ -121,4 +106,20 @@ void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) {
 	position += velocity;
 	sprite.setRotation(angularRotation);
 	sprite.setPosition(position);
+}
+
+void gameObject::wrapRound(sf::Vector2f maxExtends){
+	if (position.x > maxExtends.x){
+		position.x = 0;
+	}
+	else if (position.x < 0){
+		position.x = maxExtends.x;
+	}
+
+	if (position.y > maxExtends.y + 100){
+		position.y = 0;
+	}
+	else if (position.y < 0){
+		position.y = maxExtends.y - (sprite.getGlobalBounds().height);
+	}
 }

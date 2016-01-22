@@ -9,17 +9,18 @@ public:
 	~Factory(){
 		gameObject::~gameObject();
 	}
+	enum state{
+		wander,
+		evade
+	};
+
 	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
-	sf::Sprite returnDrawable();
 private:
 	sf::Texture texture;
-	
-	void fireInterceptor();
-	void evade();
-	void wander();
-	void producePredator();
+	std::vector<Predator> predators;
 
-	//assign these values later
-	int width = 173;
-	int height = 291;
+	void fireInterceptor();
+	void Evade();
+	void Wander();
+	void producePredator();
 };

@@ -12,8 +12,6 @@ public:
 	gameObject(sf::Vector2f pPos, float pAngle, float pSpeed);
 	~gameObject();
 	
-	sf::Vector2f normalise(sf::Vector2f);
-	float lenght(sf::Vector2f);
 	void update(float time);
 	void update(sf::Vector2f maxExtends, float time);
 	void update(sf::Vector2f maxExtends, float time, bool controlable);
@@ -27,11 +25,13 @@ public:
 	sf::Vector2f position;
 	sf::Vector2f velocity;
 	sf::Vector2f direction;
-	float speed;
-	float angularRotation;
-	float angularVelocity;
 	short range;
 	short health;
+
+	float speed;
+	float angularVelocity;
+	float angularRotation;
+
 	const float MAX_SPEED = 500;
 	const float MAX_ANGULAR_VELOCTIY = 500;
 	const float PI = 3.14159265;
@@ -39,6 +39,9 @@ public:
 	int height;
 private:
 	void wrapRound(sf::Vector2f maxExtends);
+
+	sf::Vector2f normalise(sf::Vector2f);
+	float lenght(sf::Vector2f);
 };
 
 #endif

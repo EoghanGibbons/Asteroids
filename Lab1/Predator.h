@@ -16,7 +16,6 @@ public:
 	}
 
 	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
-	State getState();
 private:
 	sf::Texture texture;
 
