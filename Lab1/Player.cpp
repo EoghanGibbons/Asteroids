@@ -7,7 +7,6 @@ gameObject(pXPos, pYPos, pXVel, pYVel){
 	gameObject::sprite.setTexture(texture);
 	gameObject::sprite.setScale(.5, .5);
 	gameObject::sprite.setOrigin((width / 2), (height / 2));
-	gameObject::speed = 0.02f;
 }
 
 void Player::update(sf::Vector2f maxExtends, float time){
