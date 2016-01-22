@@ -1,18 +1,17 @@
-#include <SFML\Graphics\Texture.hpp>
 #include <SFML\Window\Keyboard.hpp>
-#include "gameObject.h"
+#include "Bullet.h"
 
 class Player: public gameObject{
 public:
-	Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);
+	Player(std::string name, sf::Vector2f pPos, sf::Vector2f pVel);
 	~Player(){
 		gameObject::~gameObject();
 	}
 
 	void update(sf::Vector2f, float time);
-	sf::Sprite returnDrawable();
 	sf::Vector2f getPosition();
 	sf::Vector2f getVelocity();
+	std::vector<Bullet> bullets;
 private:
 	sf::Texture texture;
 	sf::Vector2f direction;

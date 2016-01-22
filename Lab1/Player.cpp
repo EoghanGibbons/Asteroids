@@ -1,8 +1,8 @@
 #include "Player.h"
 
 //Constructor
-Player::Player(std::string name, float pXPos, float pYPos, float pXVel, float pYVel):
-gameObject(pXPos, pYPos, pXVel, pYVel){
+Player::Player(std::string name, sf::Vector2f pPos, sf::Vector2f pVel) :
+gameObject(pPos, pVel){
 	texture.loadFromFile(name+".png");
 	gameObject::sprite.setTexture(texture);
 	gameObject::sprite.setScale(.5, .5);
@@ -24,11 +24,14 @@ void Player::update(sf::Vector2f maxExtends, float time){
 		gameObject::reverse();
 	}
 
-	gameObject::update(maxExtends, time, true);
-}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+		bullets.push_back(Bullet(gameObject::position, gameObject::sprite.getRotation(), 600));
+	}
 
-sf::Sprite Player::returnDrawable(){
-	return gameObject::sprite;
+	for (int i = 0; i < bullets.size(); i++) {
+		bullets[i].update(time);
+	}
+	gameObject::update(maxExtends, time, true);
 }
 
 sf::Vector2f Player::getPosition() {

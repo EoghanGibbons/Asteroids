@@ -1,8 +1,8 @@
 #include "Predator.h"
 
 //Constructor
-Predator::Predator(std::string name, float pXPos, float pYPos, float pXVel, float pYVel) :
-gameObject(pXPos, pYPos, pXVel, pYVel) {
+Predator::Predator(std::string name, sf::Vector2f pPos, sf::Vector2f pVel) :
+gameObject(pPos, pVel) {
 	texture.loadFromFile(name + ".png");
 	gameObject::sprite.setTexture(texture);
 	currentState = State::seeking;
@@ -24,10 +24,6 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 	}
 
 	gameObject::update(maxExtends, time);
-}
-
-sf::Sprite Predator::returnDrawable() {
-	return gameObject::sprite;
 }
 
 void Predator::seek(sf::Vector2f playerPos) {

@@ -69,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Boid.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Flock.cpp" />
     <ClCompile Include="gameObject.cpp" />
@@ -79,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boid.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Flock.h" />
     <ClInclude Include="gameObject.h" />

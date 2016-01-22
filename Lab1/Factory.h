@@ -5,7 +5,7 @@
 
 class Factory : public gameObject{
 public:
-	Factory(std::string name, float pXPos, float pYPos, float pXVel, float pYVel);
+	Factory(std::string name, sf::Vector2f pPos, sf::Vector2f pVel);
 	~Factory(){
 		gameObject::~gameObject();
 	}

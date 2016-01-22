@@ -32,7 +32,7 @@ int main() {
 	radar.setViewport(sf::FloatRect(0.01f, 0.79f, 0.2, 0.2));
 	radar.zoom(3);
 
-	Player myPlayer("player", 200, 200, .0, .0);
+	Player myPlayer("player", sf::Vector2f(200, 200), sf::Vector2f(.0, .0));
 
 	//Create f                                                                                                                                                                   lock, vector of shapes, and initialize boids
 	Flock BS;
@@ -43,7 +43,7 @@ int main() {
 	//Create the stars
 	std::vector<sf::CircleShape> stars;
 
-	Predator killaPredator("player", 300, 300, .0, .0);
+	Predator killaPredator("player", sf::Vector2f(300, 300), sf::Vector2f(.0, .0));
 	sf::Clock clock;
 
 	int fLeader = 0;
@@ -167,8 +167,11 @@ int main() {
 			window.draw(stars[i]);
 		}
 
-		window.draw(myPlayer.returnDrawable());
+		for (int i = 0; i < myPlayer.bullets.size(); i++) {
+			window.draw(myPlayer.bullets[i].returnDrawable());
+		}
 		window.draw(killaPredator.returnDrawable());
+		window.draw(myPlayer.returnDrawable());
 
 		//Applies the three rules to each boid in the flock and changes them accordingly.
 		if (action == "flock"){

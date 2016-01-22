@@ -70,3 +70,5 @@ Lab1.v12.suo
 *.sdf
 *.sdf
 *.suo
+*.vcxproj
+*.filters
