@@ -2,8 +2,8 @@
 #include <iostream>
 #include <math.h>
 
-gameObject::gameObject(sf::Vector2f pPos, sf::Vector2f pVel):
-position(pPos), velocity(pVel), health(4), range(15) {
+gameObject::gameObject(sf::Vector2f pPos):
+position(pPos), health(4), range(15) {
 	direction = sf::Vector2f(0, 0);
 }
 

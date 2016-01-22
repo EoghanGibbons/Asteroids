@@ -8,7 +8,7 @@ class gameObject {
 public:
 	//Constructors
 	gameObject();
-	gameObject(sf::Vector2f pPos, sf::Vector2f pVel);
+	gameObject(sf::Vector2f pPos);
 	gameObject(sf::Vector2f pPos, float pAngle, float pSpeed);
 	~gameObject();
 	
@@ -37,11 +37,11 @@ public:
 	const float PI = 3.14159265;
 	int width;
 	int height;
-private:
-	void wrapRound(sf::Vector2f maxExtends);
 
 	sf::Vector2f normalise(sf::Vector2f);
 	float lenght(sf::Vector2f);
+private:
+	void wrapRound(sf::Vector2f maxExtends);
 };
 
 #endif

@@ -1,8 +1,8 @@
 #include "Astroids.h"
 
 //Constructor
-Astroids::Astroids(std::string name, float pXPos, float pYPos, float pXVel, float pYVel) :
-gameObject(pXPos, pYPos, pXVel, pYVel) {
+Astroids::Astroids(std::string name, sf::Vector2f pPos, sf::Vector2f pVel) :
+gameObject(pPos) {
 	texture.loadFromFile(name + ".png");
 	sprite.setTexture(texture);
 	//l8r m8
@@ -14,8 +14,8 @@ gameObject(pXPos, pYPos, pXVel, pYVel) {
 	height = 291;
 }
 
-void Astroids::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
-
+void Astroids::update(sf::Vector2f maxExtends, float time) {
+	gameObject::update(maxExtends, time);
 }
 
 sf::Sprite Astroids::returnDrawable() {

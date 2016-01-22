@@ -15,9 +15,9 @@ public:
 	};
 
 	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
+	std::vector<Predator> predators;
 private:
 	sf::Texture texture;
-	std::vector<Predator> predators;
 
 	void fireInterceptor();
 	void Evade();

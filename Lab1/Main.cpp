@@ -6,6 +6,7 @@
 #include "SFML/Graphics.hpp"
 #include <string>
 #include "Factory.h"
+#include "Astroids.h"
 
 void cameraManWalls(sf::View* view, float windowWidth, float windowHeight);
 void createStars(std::vector<sf::CircleShape>* stars, int windowWidth, int WindowHeight);
@@ -15,6 +16,12 @@ int main() {
 	float smallSize = 5;
 	float bigSize = 20;
 	std::string action = "flock";
+
+	std::vector<Astroids> astroids;
+
+	for (int i = 0; i < 25; i++){
+		astroids.push_back(Astroids("noName", sf::Vector2f(rand() % 3000 + 10, rand() % 3000 + 10), sf::Vector2f(rand() % 200 + 10, rand() % 200 + 10)));
+	}
 
 	//Gets the resolution, size, and bits per pixel for the screen of the PC that is running this program.
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
@@ -55,10 +62,8 @@ int main() {
 	//Create the stars
 	std::vector<sf::CircleShape> stars;
 
-<<<<<<< HEAD
 	//Predator killaPredator("predator", sf::Vector2f(300, 300), sf::Vector2f(.0, .0));
-	Factory factOry("factory", sf::Vector2f(300, 300), sf::Vector2f(0.0f, 0.0f));
-=======
+	Factory myFactory("factory", sf::Vector2f(300, 300), sf::Vector2f(0.0f, 0.0f));
 	//draws our game border
 	sf::Vertex line[] =
 	{
@@ -84,9 +89,6 @@ int main() {
 		sf::Vertex(sf::Vector2f(0, 0)),
 		sf::Vertex(sf::Vector2f(0, 3000)),
 	};
-
-	Predator killaPredator("player", sf::Vector2f(1000, 1000), sf::Vector2f(.0, .0));
->>>>>>> origin/master
 	sf::Clock clock;
 
 	int fLeader = 0;
@@ -152,7 +154,7 @@ int main() {
 		float elapsedTimeInSeconds = time.asSeconds();
 
 		myPlayer.update(maxEntends, elapsedTimeInSeconds);
-		//killaPredator.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
+		myFactory.update(maxEntends, myPlayer.getPosition(), elapsedTimeInSeconds);
 
 		window.clear();
 
@@ -217,14 +219,17 @@ int main() {
 		for (int i = 0; i < myPlayer.bullets.size(); i++) {
 			window.draw(myPlayer.bullets[i].returnDrawable());
 		}
-<<<<<<< HEAD
-		//window.draw(killaPredator.returnDrawable());
-		window.draw(factOry.returnDrawable());
-=======
-
->>>>>>> origin/master
+		/*for (int i = 0; i < myFactory.predators.size(); i++) {
+			for (int j = 0; myFactory.predators[i].bullets.size(); j++){
+				window.draw(myFactory.predators[i].bullets[j].returnDrawable());
+			}
+		}*/
+		for (int i = 0; i < myFactory.predators.size(); i++){
+			window.draw(myFactory.predators[i].returnDrawable());
+		}
+		window.draw(myFactory.returnDrawable());
 		window.draw(myPlayer.returnDrawable());
-		window.draw(killaPredator.returnDrawable());
+
 		window.draw(line, 2, sf::Lines);
 		window.draw(line2, 2, sf::Lines);
 		window.draw(line3, 2, sf::Lines);
@@ -248,7 +253,6 @@ int main() {
 		window.setView(radar);
 		window.draw(sprite);
 		window.draw(myPlayer.returnDrawable());
-		window.draw(killaPredator.returnDrawable());
 		for (int i = 0; i < bigShips.size(); i++)	{
 			window.draw(bigShips[i]);
 		}

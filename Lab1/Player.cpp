@@ -2,7 +2,7 @@
 
 //Constructor
 Player::Player(std::string name, sf::Vector2f pPos, sf::Vector2f pVel) :
-gameObject(pPos, pVel){
+gameObject(pPos){
 	texture.loadFromFile(name+".png");
 	gameObject::sprite.setTexture(texture);
 	gameObject::sprite.setScale(.5, .5);

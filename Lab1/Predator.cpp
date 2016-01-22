@@ -2,8 +2,8 @@
 #include <iostream>
 
 //Constructor
-Predator::Predator(std::string name, sf::Vector2f pPos, sf::Vector2f pVel) :
-gameObject(pPos, pVel) {
+Predator::Predator(std::string name, sf::Vector2f pPos) :
+gameObject(pPos) {
 	texture.loadFromFile(name + ".png");
 	gameObject::sprite.setTexture(texture);
 	currentState = State::seeking;
@@ -12,6 +12,9 @@ gameObject(pPos, pVel) {
 void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time) {
 	if (currentState == State::seeking){
 		seek(playerPos);
+	}
+	else {
+
 	}
 
 	//call intelligence methods
@@ -23,6 +26,10 @@ void Predator::update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float tim
 		flock();
 	}
 
+	for (int i = 0; i < bullets.size(); i++) {
+		bullets[i].update(time);
+	}
+
 	gameObject::update(maxExtends, time);
 }
 
@@ -32,13 +39,10 @@ void Predator::seek(sf::Vector2f playerPos) {
 }
 
 void Predator::flock() {
-	//this needs much further consideration, HOWEVER, my current understanding is that
-	//if there is one predator ship already engaged in combat with the player the rest
-	//should flock to it and engage the player from stratigic angels
 }
 
 void Predator::fire() {
-	//Fire at the player, if you think you can hit him
+	bullets.push_back(Bullet(gameObject::position, gameObject::sprite.getRotation(), 600));
 }
 
 void Predator::arrive(float arriveRadius, float slowRadius, sf::Vector2f playerPos, float time){

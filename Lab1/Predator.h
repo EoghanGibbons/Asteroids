@@ -2,11 +2,11 @@
 #define PREDATOR_H
 
 #include <SFML\Graphics\Texture.hpp>
-#include "gameObject.h"
+#include "Bullet.h"
 
 class Predator : public gameObject{
 public:
-	Predator(std::string name, sf::Vector2f pPos, sf::Vector2f pVel);
+	Predator(std::string name, sf::Vector2f pPos);
 	enum State {
 		seeking = 0,
 		flocking = 1,
@@ -16,6 +16,7 @@ public:
 	}
 
 	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
+	std::vector<Bullet> bullets;
 private:
 	sf::Texture texture;
 
