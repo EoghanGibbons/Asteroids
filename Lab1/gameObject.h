@@ -7,42 +7,72 @@
 
 class gameObject {
 public:
-	//Constructors
-	gameObject();
-	gameObject(sf::Vector2f pPos);
-	gameObject(sf::Vector2f pPos, float pAngle, float pSpeed);
-	~gameObject();
+	//! Constructors
 	
-	void update(float time);
-	void update(sf::Vector2f maxExtends, float time);
+	//! Default contructor
+	gameObject();
+	//! Constructor for non-player controled objects
+	gameObject(sf::Vector2f pPos); 
+	//! Constructor for player controled objects
+	gameObject(sf::Vector2f pPos, float pAngle, float pSpeed);
+	//! Destructor for gameObjects
+	~gameObject(); 
+	
+	//! Update function for objects that don't wrap around, used for bullets
+	void update(float time); 
+	//! Update function for non-player controled objects
+	void update(sf::Vector2f maxExtends, float time); 
+	//! Update function for player controled objects
 	void update(sf::Vector2f maxExtends, float time, bool controlable);
-	float angleBetween(sf::Vector2f vec1, sf::Vector2f vec2);
+	//! Returns the angle between two vectors
+	float angleBetween(sf::Vector2f vec1, sf::Vector2f vec2); 
+	//! Returns the dot product of two vectors
 	float dotProduct(sf::Vector2f vec1, sf::Vector2f vec2);
-	void thrust();
-	void reverse();
-	sf::Sprite sprite;
-	sf::Sprite returnDrawable();
+	//! Accelerates an object in the direction it's facing
+	void thrust(); 
+	//! Accelerates an object opposite the direction it's facing
+	void reverse(); 
+	//! An Objects sprite
+	sf::Sprite sprite; 
+	//! Returns the drawable for SFML to draw
+	sf::Sprite returnDrawable(); 
 
-	sf::Vector2f position;
-	sf::Vector2f velocity;
+	//! Objects position in 2d
+	sf::Vector2f position; 
+	//! Acceleration of an object
+	sf::Vector2f velocity; 
+	//! Direction an object is facing
 	sf::Vector2f direction;
-	short range;
-	short health;
+	//! An objects effective range
+	short range; 
+	//! An objects health
+	short health; 
 
-	float speed;
-	float angularVelocity;
-	float angularRotation;
+	//! An Objects speed as an integer
+	float speed; 
+	//! Angular velocity of an object
+	float angularVelocity; 
+	//! An objects rotation
+	float angularRotation; 
 
-	const float MAX_SPEED = 500;
-	const float MAX_ANGULAR_VELOCTIY = 500;
+	//! Maximum speed constant
+	const float MAX_SPEED = 500; 
+	//! Maximum rate of rotation
+	const float MAX_ANGULAR_VELOCTIY = 500; 
+	//! Pi
 	const float PI = 3.14159265;
-	int width;
-	int height;
+	//! Width of an object
+	int width; 
+	//! Height of an object
+	int height; 
 
-	sf::Vector2f normalise(sf::Vector2f);
-	float lenght(sf::Vector2f);
+	//! Returns the normal of a vector
+	sf::Vector2f normalise(sf::Vector2f); 
+	//! Returns the lenght of a vector
+	float lenght(sf::Vector2f); 
 private:
-	void wrapRound(sf::Vector2f maxExtends);
+	//! Implementation of wrap around world
+	void wrapRound(sf::Vector2f maxExtends); 
 };
 
 #endif

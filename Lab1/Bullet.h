@@ -6,14 +6,19 @@
 
 class Bullet : public gameObject {
 public:
-	Bullet(sf::Vector2f pPos, float angle, float speed);
+	//! Bullet contructor, pPos is passed to it's gameObject
+	Bullet(sf::Vector2f pPos, float angle, float speed); 
+	//! Implemented Destructor
 	~Bullet() {
-		gameObject::~gameObject();
+		//! Calls it's gameObject's destructor
+		gameObject::~gameObject(); 
 	}
 
-	void update(float time);
+	//! Update takes time since last frame
+	void update(float time); 
 private:
-	sf::Texture texture;
+	//! Bullet's texture
+	sf::Texture texture; 
 };
 
 #endif

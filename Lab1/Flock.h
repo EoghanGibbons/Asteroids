@@ -15,24 +15,36 @@ Brief description of Flock Class:
 class Flock
 {
 public:
-	//Public Variables
-	std::vector<Boid> flock;
+	//! Public Variables
 
-	//Constructors
-	Flock();
+	//! Container for boids in a flock
+	std::vector<Boid> flock; 
 
-	//Destructor
-	~Flock();
+	//! Constructor
+	Flock(); 
 
-	//Accessor functions
+	//! Destructor
+	~Flock(); 
+
+	//! Accessor functions
+
+	//! Returns the size of a flock
 	int getSize();
-	Boid getBoid(int i);
-	//Mutator Functions
-	void addBoid(Boid b);
-	void flocking();
-	void swarming();
-	void cFormation(int fLeader);
-	void CheckBounds();
+	//! Returns a specific boid in a flock
+	Boid getBoid(int i); 
+	
+	//! Mutator Functions
+	
+	//! add a boid to the flock
+	void addBoid(Boid b); 
+	//! Movement control for the flocking behaviour
+	void flocking(); 
+	//! Movement control for the swarming behaviour
+	void swarming(); 
+	//! Movement control for following a leader behaviour
+	void cFormation(int fLeader); 
+	//! Checks the bounds of the world as implementation of wrap round world
+	void CheckBounds(); 
 private:
 
 };

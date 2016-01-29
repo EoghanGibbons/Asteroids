@@ -5,22 +5,35 @@
 
 class Factory : public gameObject{
 public:
-	Factory(std::string name, sf::Vector2f pPos, sf::Vector2f pVel);
+	//! Constructor for factory object Position is passed to it's gameObject
+	Factory(std::string name, sf::Vector2f pPos, sf::Vector2f pVel); 
+	//! Implemented Destructor method
 	~Factory(){
-		gameObject::~gameObject();
+		//! calls it's gameObjects destructor
+		gameObject::~gameObject(); 
 	}
+	//! States
 	enum state{
-		wander,
-		evade
+		//! Wandering state
+		wander, 
+		//! Evading state
+		evade 
 	};
 
-	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time);
-	std::vector<Predator> predators;
+	//! Update function takes world bounds, players position, and time since last frame
+	void update(sf::Vector2f maxExtends, sf::Vector2f playerPos, float time); 
+	//! container for predators created by the factory
+	std::vector<Predator> predators; 
 private:
-	sf::Texture texture;
+	//! Factorys texture
+	sf::Texture texture; 
 
-	void fireInterceptor();
-	void Evade();
-	void Wander();
-	void producePredator();
+	//! Fires an interceptor missle at the player
+	void fireInterceptor(); 
+	//! Evading implementation
+	void Evade(); 
+	//! Wander implementation
+	void Wander(); 
+	//! Produces a predator
+	void producePredator(); 
 };

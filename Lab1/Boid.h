@@ -24,16 +24,24 @@ the boid being looked at is a predator, and if it is, calculate a Pvector
 that maximizes separation.
 */
 
-class Boid
-{
+class Boid {
 public:
-	bool predator;
-	Pvector location;
-	Pvector velocity;
-	Pvector acceleration;
-	float maxSpeed;
-	float maxForce;
-	Boid() {}
+	//! Leader of the formation
+	bool predator; 
+	//! Location as a Pvector
+	Pvector location; 
+	//! Velocity as a Pvector
+	Pvector velocity; 
+	//! Acceleration as a Pvector
+	Pvector acceleration; 
+	//! Maximum allowed Velocity as a float
+	float maxSpeed; 
+	//! Max acceleration force as a float
+	float maxForce; 
+	//! Constructor
+	Boid() {} 
+
+	//! Overloaded constructor just implementing position
 	Boid(float x, float y)
 	{
 		acceleration = Pvector(0, 0);
@@ -42,6 +50,8 @@ public:
 		maxSpeed = 3.5;
 		maxForce = 0.5;
 	}
+	
+	//! Overloaded contructor marking the boid as the leader of the formation
 	Boid(float x, float y, bool predCheck)
 	{
 		predator = predCheck;
@@ -58,28 +68,34 @@ public:
 		acceleration = Pvector(0, 0);
 		location = Pvector(x, y);
 	}
-	/*
-	Destructors are commented out for now. g++ throws errors if they are included.
-	If compiling on Visual Studio, however, no errors are thrown.
-	//Destructor
-	Boid::~Boid()
-	{
-	//cout << "Boid is being deleted by destructor!" << endl;
-	}
-	*/
-	void applyForce(Pvector force);
-	// Three Laws that boids follow
-	Pvector Separation(std::vector<Boid> Boids);
-	Pvector Alignment(std::vector<Boid> Boids);
-	Pvector Cohesion(std::vector<Boid> Boids);
-	//Functions involving SFML and visualisation linking
-	Pvector seek(Pvector v);
-	void run(std::vector <Boid> v);
-	void update();
-	void flock(std::vector <Boid> v);
-	void borders();
-	float angle(Pvector v);
-	void swarm(std::vector <Boid> v);
+	
+	//! Applies acceleration force to boid each frame
+	void applyForce(Pvector force); 
+	
+	//! Three Laws that boids follow
+
+	//! All boids separate
+	Pvector Separation(std::vector<Boid> Boids); 
+	//! All boids form in a circle around leader
+	Pvector Alignment(std::vector<Boid> Boids); 
+	//! All boids swarm together
+	Pvector Cohesion(std::vector<Boid> Boids); 
+	
+	//! Functions involving SFML and visualisation linking
+
+	//! Returns a vector in the direction of the player
+	Pvector seek(Pvector v); 
+	void run(std::vector <Boid> v); //! 
+	//! Called each frame
+	void update(); 
+	//! Implemented flocking behaviour
+	void flock(std::vector <Boid> v); 
+	//! Implementation of wrap around world
+	void borders(); 
+	//! returns the angle between boid and a given position
+	float angle(Pvector v); 
+	//! Implemented flocking behaviour
+	void swarm(std::vector <Boid> v); 
 };
 
 #endif

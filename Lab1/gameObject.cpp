@@ -15,15 +15,18 @@ position(pPos), angularRotation(pAngle), speed(pSpeed) {
 
 gameObject::~gameObject() {}
 
+//! Returns the lenght of a Vector
 float gameObject::lenght(sf::Vector2f vec) {
 	return ((vec.x * vec.x) + ((vec.y * vec.y)));
 }
 
+//! Returns the normal of a vector
 sf::Vector2f gameObject::normalise(sf::Vector2f vec){
 	//if (lenght(vec))
 	return (vec / lenght(vec));
 }
 
+//! Apply a force in the direction we're facing
 void gameObject::thrust() {
 	if (speed < MAX_SPEED)
 		speed += 10;
@@ -31,6 +34,7 @@ void gameObject::thrust() {
 		speed = MAX_SPEED;
 }
 
+//! Apply a force in the direction opposite the one we're facing
 void gameObject::reverse() {
 	if (speed > -MAX_SPEED)
 		speed -= 10;
@@ -38,6 +42,7 @@ void gameObject::reverse() {
 		speed = -MAX_SPEED;
 }
 
+//! Calculate the angle between two vectors
 float gameObject::angleBetween(sf::Vector2f vec1, sf::Vector2f vec2){
 	if (vec1.x == 0 && vec1.y == 0) return 0.0f;
 	if (vec2.x == 0 && vec2.y == 0) return 0.0f;
@@ -54,26 +59,24 @@ float gameObject::angleBetween(sf::Vector2f vec1, sf::Vector2f vec2){
 	return acos(x);
 }
 
+//! Calculate the Dot Product between two vectors
 float gameObject::dotProduct(sf::Vector2f vec1, sf::Vector2f vec2) {
 	return ((vec1.x * vec2.x) + (vec1.y * vec2.y) );
 }
 
+//! Return drawable object for SMLF to draw
 sf::Sprite gameObject::returnDrawable(){
 	return sprite;
 }
 
-/////////////////////////////
-//////Updater Functions//////
-/////////////////////////////
-
-//update objects that move in straight lines
+//! update objects that move in straight lines
 void gameObject::update(float time) {
 	velocity = sf::Vector2f(direction * speed * time);
 	position += velocity;
 	sprite.setPosition(position);
 }
 
-//Update an Ai Object
+//! Update an Ai Object
 void gameObject::update(sf::Vector2f maxExtends, float time) {
 	wrapRound(maxExtends);
 
@@ -85,7 +88,7 @@ void gameObject::update(sf::Vector2f maxExtends, float time) {
 	sprite.setPosition(position);
 }
 
-//Update a controlable object
+//! Update a controlable object
 void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) {
 	angularRotation += angularVelocity*time;
 	if (angularVelocity > MAX_ANGULAR_VELOCTIY){
@@ -108,6 +111,7 @@ void gameObject::update(sf::Vector2f maxExtends, float time, bool controlable) {
 	sprite.setPosition(position);
 }
 
+//! Implementation of wrap around world
 void gameObject::wrapRound(sf::Vector2f maxExtends){
 	if (position.x > maxExtends.x){
 		position.x = 0;
